@@ -1,0 +1,13 @@
+{
+    "extends": ["eslint:recommended"],
+    "plugins": [],
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": false,
+      "codeFrame": false
+    },
+    "env": {"browser": true},
+    "globals": {},
+    "parser": "babel-eslint",
+    "rules": { "strict": 0 }
+}
