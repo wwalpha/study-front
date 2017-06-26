@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions'
 
-//const WEB_SITE = 'http://localhost:8080/studysite'
-const WEB_SITE = '.'
+const WEB_SITE = 'http://localhost:8080/studysite'
+// const WEB_SITE = '.'
 
 export const users = createAction("USERS", () => ({
   host: WEB_SITE + "/users",
@@ -55,10 +55,20 @@ export const favorite = createAction("FAVORITE", (word) => ({
   word,
 }));
 
-export const download = createAction("DOWNLOAD", (user) => ({
+export const download = createAction("DOWNLOAD", () => ({
   host: WEB_SITE,
   command: 'download',
   method: "GET",
   headers: {},
   body: {},
+}));
+
+export const updateSettings = createAction("UPDATE_SETTINGS", (file) => ({
+  host: WEB_SITE,
+  command: 'settings',
+  fileData: file,
+}));
+
+export const userChange = createAction("USER_CHANGE", (index) => ({
+  index,
 }));

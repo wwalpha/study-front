@@ -5,6 +5,7 @@ const initialState = {
   visible: false,
   users: [],
   currUser: '',
+  checkedUser: 0,
   wordType: '1',
 }
 
@@ -26,6 +27,11 @@ const app = handleActions({
 
   "SWITCH": (state, action) => Object.assign({}, state, {
     visible: !state.visible,
+  }),
+
+  "USER_CHANGE": (state, action) => Object.assign({}, state, {
+    checkedUser: action.payload.index,
+    currUser: state.users[action.payload.index],
   }),
 
   "EXCEPTION": (state, action) => Object.assign({}, state, {

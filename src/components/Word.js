@@ -18,16 +18,11 @@ class Word extends Component {
     super();
 
     this.handleOnCheck = this.handleOnCheck.bind(this);
-    // this.handleOnFavorite = this.handleOnFavorite.bind(this);
   }
 
   handleOnCheck(e) {
     this.props.onCheck(this.props.datas.word);
   }
-
-  // handleOnFavorite(e) {
-  //   ;
-  // }
 
   render() {
     const styles = {

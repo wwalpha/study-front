@@ -1,11 +1,11 @@
 import { applyMiddleware } from 'redux'
 import logger from 'redux-logger';
 import api from './api';
-// import init from './init';
+import upload from './upload';
 
 const middleware = applyMiddleware(
   api,
-  // init,
+  upload,
   logger,
 )
 

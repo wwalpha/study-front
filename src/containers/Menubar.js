@@ -18,15 +18,18 @@ import Looks3 from 'material-ui/svg-icons/image/looks-3';
 import Save from 'material-ui/svg-icons/content/save';
 import Settings from 'material-ui/svg-icons/action/settings';
 import PlayList from 'material-ui/svg-icons/av/playlist-play';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import Check from 'material-ui/svg-icons/navigation/check';
+import Person from 'material-ui/svg-icons/social/person';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import {blue500, red500, grey600} from 'material-ui/styles/colors';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Divider from '../components/Divider';
 import DLButton from '../components/DLButton';
+import UploadButton from '../components/UploadButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class Menubar extends Component {
 
@@ -86,7 +89,18 @@ class Menubar extends Component {
         width: 'auto',
         marginLeft: '12px',
       },
-      
+      selectedMenuItemStyle: {
+        minWidth: '120px',
+      },
+      menuItemStyle: {
+        lineHeight: '24px',
+        minHeight: '24px',
+        fontSize: '14px',
+      },
+      innerDivStyle: {
+        paddingRight: '8px',
+        paddingLeft: '48px',
+      },
     }
 
     const fillColor = grey600;
@@ -96,6 +110,19 @@ class Menubar extends Component {
     const color1 = this.props.type === '1' ? greenA200 : fillColor;
     const color2 = this.props.type === '2' ? greenA200 : fillColor;
     const color3 = this.props.type === '3' ? greenA200 : fillColor;
+
+    const menuItems = this.props.users.map((user, idx) => {
+      return (
+        <MenuItem
+          key={idx}
+          primaryText={user}
+          style={styles.menuItemStyle}
+          innerDivStyle={styles.innerDivStyle}
+          leftIcon={this.props.checkedUser === idx ? <Check style={{ margin: '0px'}} /> : null}
+          onTouchTap={() => { this.props.actions.userChange(idx); }}
+        />
+      );
+    });
 
     return (
       <div style={styles.container}>
@@ -129,7 +156,7 @@ class Menubar extends Component {
             uncheckedIcon={<Looks3 />}
           />
         </RadioButtonGroup>
-        <Divider height="32px" width="2px" style={{ margin: '2px 4px'}} />
+        <Divider height="28px" width="2px" style={{ margin: '4px 4px'}} />
         <IconButton
           style={styles.style}
           tooltip="前へ"
@@ -176,15 +203,8 @@ class Menubar extends Component {
           onTouchTap={this.props.actions.download}
           color={fillColor}
         />
-        <IconButton style={styles.style} tooltip="アップロード" tooltipPosition="bottom-center">
+        <IconButton style={styles.style} tooltip="Upload" tooltipPosition="bottom-center">
           <Upload color={fillColor} />
-        </IconButton>
-        <IconButton
-          style={styles.style}
-          tooltip="設定"
-          tooltipPosition="bottom-center"
-        >
-          <Settings color={fillColor} />
         </IconButton>
         <IconButton
           style={styles.style}
@@ -194,6 +214,24 @@ class Menubar extends Component {
         >
           <PlayList color={fillColor} />
         </IconButton>
+        <Divider height="28px" width="2px" style={{ margin: '4px 4px'}} />
+        <UploadButton
+          style={styles.style}
+          iconStyle={styles.style}
+          tooltip="Settings"
+          tooltipPosition="bottom-center"
+          icon={<Settings color={fillColor} />}
+          onUpload={this.props.actions.updateSettings}
+        />
+        <IconMenu
+          iconButtonElement={<IconButton><Person color={fillColor}/></IconButton>}
+          anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          selectedMenuItemStyle={styles.selectedMenuItemStyle}
+          listStyle={styles.selectedMenuItemStyle}
+        >
+          {menuItems}
+        </IconMenu>
         <Dialog
           title="Today's playlist"
           actions={actions}
@@ -210,11 +248,12 @@ class Menubar extends Component {
 const mapStateToProps = state => {
   return {
     visible: state.app.visible,
+    users: state.app.users,
     currUser: state.app.currUser,
+    checkedUser: state.app.checkedUser,
     wordType: state.app.wordType,
     fileData: state.word.fileData,
     words: state.word.words,
-    // open: state.app.open,
   }
 }
 
@@ -226,6 +265,8 @@ Menubar.props = {
   actions: PropTypes.object.isRequired,
   visible: PropTypes.bool,
   currUser: PropTypes.string,
+  users: PropTypes.string,
+  checkedUser: PropTypes.number,
   wordType: PropTypes.string,
   fileData: PropTypes.string,
   words: PropTypes.arrayOf(PropTypes.object),
