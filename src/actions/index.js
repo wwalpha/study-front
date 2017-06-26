@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions'
 
-const WEB_SITE = 'http://localhost:8080/studysite'
-// const WEB_SITE = '.'
+//const WEB_SITE = 'http://localhost:8080/studysite'
+const WEB_SITE = '.'
 
 export const users = createAction("USERS", () => ({
   host: WEB_SITE + "/users",

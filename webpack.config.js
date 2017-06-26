@@ -28,11 +28,15 @@ module.exports = {
         loaders: ['style-loader', 'css-loader?modules'],
       }
     ],
-    // preLoaders: [
-    //   {
-    //     test: /\.js$/,
-    //     loader: path.resolve(__dirname, "./node_modules/source-map-loader")
-    //   }
-    // ],
+//    preLoaders: [
+//      {
+//        test: /\.js$/,
+//        loader: ["source-map-loader"],
+//      }
+//    ],
   },
+//  externals: {
+//     "react": "React",
+//     "react-dom": "ReactDOM"
+//  },
 }
