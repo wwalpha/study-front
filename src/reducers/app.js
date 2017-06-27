@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions'
+import { UPLOAD_STATUS } from '../constant/Const'
 
 const initialState = {
   initCmp: 0,
@@ -7,6 +8,7 @@ const initialState = {
   currUser: '',
   checkedUser: 0,
   wordType: '1',
+  uploadStatus: '0',
 }
 
 const app = handleActions({
@@ -32,6 +34,18 @@ const app = handleActions({
   "USER_CHANGE": (state, action) => Object.assign({}, state, {
     checkedUser: action.payload.index,
     currUser: state.users[action.payload.index],
+  }),
+
+  "UPDATE_SETTINGS_REQUEST": (state, action) => Object.assign({}, state, {
+    uploadStatus: UPLOAD_STATUS.STARTING,
+  }),
+
+  "UPDATE_SETTINGS_SUCCESS": (state, action) => Object.assign({}, state, {
+    uploadStatus: UPLOAD_STATUS.READY,
+  }),
+
+  "UPDATE_SETTINGS_FAILED": (state, action) => Object.assign({}, state, {
+    uploadStatus: UPLOAD_STATUS.READY,
   }),
 
   "EXCEPTION": (state, action) => Object.assign({}, state, {

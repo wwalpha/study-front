@@ -222,6 +222,7 @@ class Menubar extends Component {
           tooltipPosition="bottom-center"
           icon={<Settings color={fillColor} />}
           onUpload={this.props.actions.updateSettings}
+          uploadStatus={this.props.uploadStatus}
         />
         <IconMenu
           iconButtonElement={<IconButton><Person color={fillColor}/></IconButton>}
@@ -254,6 +255,7 @@ const mapStateToProps = state => {
     wordType: state.app.wordType,
     fileData: state.word.fileData,
     words: state.word.words,
+    uploadStatus: state.app.uploadStatus,
   }
 }
 
@@ -270,6 +272,7 @@ Menubar.props = {
   wordType: PropTypes.string,
   fileData: PropTypes.string,
   words: PropTypes.arrayOf(PropTypes.object),
+  uploadStatus: PropTypes.string,
 }
 
 export default connect(

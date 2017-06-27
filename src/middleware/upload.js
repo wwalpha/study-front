@@ -6,36 +6,43 @@ const upload = store => next => action => {
   }
 
   // Get params
+  const { FETCH_REQUEST, FETCH_SUCCESS, FETCH_FAILED } = action.payload.types;
   const { host, command, fileData } = action.payload;
-  const { currUser } = store.getState().app;
 
-  const newURL = [host, currUser, command].join('/');
+  // start event
+  next({ type: FETCH_REQUEST});
+
+  const newURL = [host, command].join('/');
 
   let formData = new FormData();
   formData.append('file', fileData);
 
   fetch(newURL, {
-    mode: 'no-cors',
+    mode: 'cors',
     method: 'POST',
     body: formData,
   })
   .then(res => {
     if (res.status !== 200) {
-      return next({type: 'EXCEPTION'});
+      console.log(res);
+      throw new Error();
     }
     
-    return res.json();
-  })
-  .then(datas => {
-    next({
-      type: action.type,
-      payload: {
-        result: 'success',
+    store.dispatch({
+      type: 'USERS',
+      payload:{
+        host: host + "/users",
+        method: 'GET',
+        headers: {},
+        body: {},
       }
     });
+
+    return next({ type: FETCH_SUCCESS });
   })
-  .catch((e) => {
-    return next({type: 'EXCEPTION'});
+  .catch((error) => {
+    console.log(error);
+    return next({ type: FETCH_FAILED});
   });
 }
 

@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions'
 
-const WEB_SITE = 'http://localhost:8080/studysite'
-// const WEB_SITE = '.'
+// const WEB_SITE = 'http://localhost:8080/studysite'
+const WEB_SITE = '.'
 
 export const users = createAction("USERS", () => ({
   host: WEB_SITE + "/users",
@@ -64,6 +64,11 @@ export const download = createAction("DOWNLOAD", () => ({
 }));
 
 export const updateSettings = createAction("UPDATE_SETTINGS", (file) => ({
+  types: {
+    FETCH_REQUEST: 'UPDATE_SETTINGS_REQUEST',
+    FETCH_SUCCESS: 'UPDATE_SETTINGS_SUCCESS',
+    FETCH_FAILED: 'UPDATE_SETTINGS_FAILED',
+  },
   host: WEB_SITE,
   command: 'settings',
   fileData: file,
