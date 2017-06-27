@@ -7,7 +7,7 @@ const api = store => next => action => {
     });
   }
 
-  if (!["NEXT_PAGE","SAVE", "USERS", "DOWNLOAD"].includes(action.type)) {
+  if (!["NEXT_PAGE","SAVE", "USERS", "DOWNLOAD", "PLAYLIST"].includes(action.type)) {
     return next(action);
   }
 
@@ -25,15 +25,14 @@ const api = store => next => action => {
     body: action.payload.body,
   })
   .then(res => {
-    console.log(222);
     if (res.status !== 200) {
-      return next({type: 'EXCEPTION'});
+      console.log(res);
+      throw new Error();
     }
     
     return res.json();
   })
   .then(datas => {
-    console.log(333);
     next({
       type: action.type,
       payload: {

@@ -15,6 +15,7 @@ import School from 'material-ui/svg-icons/social/school';
 import LooksOne from 'material-ui/svg-icons/image/looks-one';
 import LooksTwo from 'material-ui/svg-icons/image/looks-two';
 import Looks3 from 'material-ui/svg-icons/image/looks-3';
+import Looks4 from 'material-ui/svg-icons/image/looks-4';
 import Save from 'material-ui/svg-icons/content/save';
 import Settings from 'material-ui/svg-icons/action/settings';
 import PlayList from 'material-ui/svg-icons/av/playlist-play';
@@ -42,6 +43,7 @@ class Menubar extends Component {
 
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleOnSave = this.handleOnSave.bind(this);
   }
 
 
@@ -51,6 +53,13 @@ class Menubar extends Component {
 
   handleClose() {
     this.setState({open: false});
+  };
+
+  handleOnSave() {
+    const {wordType, allWords, currWords} = this.props;
+    const words = wordType == 4 ? currWords : allWords
+
+    this.props.actions.save(words);
   };
 
   render() {
@@ -110,6 +119,7 @@ class Menubar extends Component {
     const color1 = this.props.type === '1' ? greenA200 : fillColor;
     const color2 = this.props.type === '2' ? greenA200 : fillColor;
     const color3 = this.props.type === '3' ? greenA200 : fillColor;
+    const color4 = this.props.type === '4' ? greenA200 : fillColor;
 
     const menuItems = this.props.users.map((user, idx) => {
       return (
@@ -122,6 +132,10 @@ class Menubar extends Component {
           onTouchTap={() => { this.props.actions.userChange(idx); }}
         />
       );
+    });
+
+    const source = this.props.playlist.map((item) => {
+      <source src={item.source} type={item.type} />
     });
 
     return (
@@ -154,6 +168,13 @@ class Menubar extends Component {
             iconStyle={styles.iconStyle}
             checkedIcon={<Looks3 />}
             uncheckedIcon={<Looks3 />}
+          />
+          <RadioButton
+            value="4"
+            style={styles.radioButton}
+            iconStyle={styles.iconStyle}
+            checkedIcon={<Looks4 />}
+            uncheckedIcon={<Looks4 />}
           />
         </RadioButtonGroup>
         <Divider height="28px" width="2px" style={{ margin: '4px 4px'}} />
@@ -190,9 +211,7 @@ class Menubar extends Component {
           style={styles.style}
           tooltip="保存"
           tooltipPosition="bottom-center"
-          onTouchTap={e => {
-            this.props.actions.save(this.props.words);
-          }}
+          onTouchTap={this.handleOnSave}
         >
           <Save color={fillColor} />
         </IconButton>
@@ -239,7 +258,9 @@ class Menubar extends Component {
           modal={true}
           open={this.state.open}
         >
-          xxxx
+          <audio controls="controls">
+            
+          </audio>
         </Dialog>
       </div>
     )
@@ -254,8 +275,10 @@ const mapStateToProps = state => {
     checkedUser: state.app.checkedUser,
     wordType: state.app.wordType,
     fileData: state.word.fileData,
-    words: state.word.words,
+    allWords: state.word.words,
+    currWords: state.word.currPage,
     uploadStatus: state.app.uploadStatus,
+    playlist: state.word.playlist,
   }
 }
 
@@ -271,8 +294,10 @@ Menubar.props = {
   checkedUser: PropTypes.number,
   wordType: PropTypes.string,
   fileData: PropTypes.string,
-  words: PropTypes.arrayOf(PropTypes.object),
+  allWords: PropTypes.arrayOf(PropTypes.object),
+  currWords: PropTypes.arrayOf(PropTypes.object),
   uploadStatus: PropTypes.string,
+  playlist: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default connect(

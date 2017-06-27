@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions'
 
-// const WEB_SITE = 'http://localhost:8080/studysite'
-const WEB_SITE = '.'
+const WEB_SITE = 'http://localhost:8080/studysite'
+// const WEB_SITE = '.'
 
 export const users = createAction("USERS", () => ({
   host: WEB_SITE + "/users",
@@ -76,4 +76,14 @@ export const updateSettings = createAction("UPDATE_SETTINGS", (file) => ({
 
 export const userChange = createAction("USER_CHANGE", (index) => ({
   index,
+}));
+
+export const playlist = createAction("PLAYLIST", (file) => ({
+  types: {
+    FETCH_REQUEST: 'PLAYLIST_REQUEST',
+    FETCH_SUCCESS: 'PLAYLIST_SUCCESS',
+    FETCH_FAILED: 'PLAYLIST_FAILED',
+  },
+  host: WEB_SITE,
+  command: 'playlist',
 }));
