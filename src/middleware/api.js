@@ -81,8 +81,7 @@ const api = store => next => action => {
     });
   })
   .catch((e) => {
-    console.log(1111);
-    return next({ type: FETCH_SUCCESS });
+    return next({ type: FETCH_FAILED });
   }); 
 }
 

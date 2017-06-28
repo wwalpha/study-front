@@ -41,11 +41,9 @@ class AudioPlayer extends Component {
 
     this.audio.src = this.props.playlist[pos].source;
     this.audio.load();
-    
-    console.log(this.audio);
-    
-    
     this.audio.play();
+
+    this.wordText.innerText = this.props.playlist[pos].word;
 
     // update status
     this.setState({ pos: pos + 1 });
@@ -54,11 +52,10 @@ class AudioPlayer extends Component {
   render() {
     const { playlist } = this.props;
 
-    // const word = playlist.length > 0 ? playlist[this.state.pos].word : undefined ;
-
     return (
       <div>
         <audio ref={(audio) => { this.audio = audio; }} />
+        <span ref={(wordText) => { this.wordText = wordText; }} />
       </div>
     );
   }

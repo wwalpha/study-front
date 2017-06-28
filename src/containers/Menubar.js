@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as MenuActions from '../actions/menu';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -267,7 +268,7 @@ class Menubar extends Component {
           modal={true}
           open={this.state.open}
         >
-          <FlatButton label="開始" onTouchTap={() => { this.audioPlayer.start(); }}/>
+          <RaisedButton primary label="開始" onTouchTap={() => { this.audioPlayer.start(); }}/>
           <AudioPlayer
             ref={(audioPlayer) => { this.audioPlayer = audioPlayer; }}
             playlist={this.props.playlist}

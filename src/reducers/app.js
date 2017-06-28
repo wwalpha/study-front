@@ -17,7 +17,7 @@ const app = handleActions({
     wordType: action.payload.wordType,
   }),
 
-  "USERS": (state, action) => {
+  "USERS_SUCCESS": (state, action) => {
     const user = action.payload.datas === undefined ? '' : action.payload.datas[0];
 
     return Object.assign({}, state, {
@@ -26,6 +26,10 @@ const app = handleActions({
       currUser: user,
     });
   },
+
+  "USERS_FAILED": (state, action) => Object.assign({}, state, {
+    initCmp: 100,
+  }),
 
   "SWITCH": (state, action) => Object.assign({}, state, {
     visible: !state.visible,
