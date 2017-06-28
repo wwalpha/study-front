@@ -1,6 +1,8 @@
 // export const WEB_SITE = 'http://localhost:8080/studysite';
 export const WEB_SITE = '.';
 
+export const VERSION = 'Ver1.0.0';
+
 export const METHOD = {
   GET: 'GET',
   POST: 'POST',

@@ -89,8 +89,6 @@ class Word extends Component {
           <IconButton
             style={styles.small}
             iconStyle={styles.smallIcon}
-            //tooltip="weblio辞書"
-            //tooltipPosition="bottom-center"
             href={["http://ejje.weblio.jp/content",this.props.datas.word].join("/")}
             target="_blank"
           >
@@ -99,8 +97,6 @@ class Word extends Component {
           <IconButton
             style={styles.small}
             iconStyle={styles.smallIcon}
-            //tooltip="小D英語"
-            //tooltipPosition="bottom-center"
             href={["http://dict.hjenglish.com/w",this.props.datas.word].join("/")}
             target="_blank"
           >
@@ -115,7 +111,7 @@ class Word extends Component {
           >
             <Sound color={grey600}/>
           </IconButton>
-          <audio ref={(audio) => { this.audio = audio; }} src={this.props.datas.sound} type="audio/wav" preload="none" />
+          <audio ref={(audio) => { this.audio = audio; }} src={this.props.datas.sound} preload="none" />
           <div style={{ paddingLeft: '4px' }} >{this.props.datas.vocabulary}</div>
         </div>
       </div>

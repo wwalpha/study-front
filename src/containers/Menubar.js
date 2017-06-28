@@ -34,6 +34,8 @@ import DLButton from '../components/DLButton';
 import UploadButton from '../components/UploadButton';
 import AudioPlayer from '../components/AudioPlayer';
 
+import { VERSION } from '../constant/Const'
+
 class Menubar extends Component {
 
   constructor() {
@@ -262,6 +264,15 @@ class Menubar extends Component {
         >
           {menuItems}
         </IconMenu>
+        <span
+          style={{
+            position: 'absolute',
+            right: '16px',
+            fontSize: '12px',
+          }}
+        >
+          {VERSION}
+        </span>
         <Dialog
           title="Today's playlist"
           actions={actions}
