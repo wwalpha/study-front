@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import * as AppActions from '../actions/menu';
+import * as MenuActions from '../actions/menu';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -31,6 +31,7 @@ import Person from 'material-ui/svg-icons/social/person';
 import Divider from '../components/Divider';
 import DLButton from '../components/DLButton';
 import UploadButton from '../components/UploadButton';
+import AudioPlayer from '../components/AudioPlayer';
 
 class Menubar extends Component {
 
@@ -143,12 +144,9 @@ class Menubar extends Component {
       );
     });
 
-    console.log(1111);
-    console.log(this.props.playlist);
     const source = this.props.playlist.map((item, idx) => {
       return <source key={idx} src={item.source} type={item.type} />;
     });
-    console.log(source);
 
     return (
       <div style={styles.container}>
@@ -229,7 +227,11 @@ class Menubar extends Component {
           onTouchTap={this.props.actions.download}
           color={fillColor}
         />
-        <IconButton style={styles.style} tooltip="Upload" tooltipPosition="bottom-center">
+        <IconButton
+          style={styles.style}
+          tooltip="Upload"
+          tooltipPosition="bottom-center"
+        >
           <Upload color={fillColor} />
         </IconButton>
         <IconButton
@@ -265,10 +267,11 @@ class Menubar extends Component {
           modal={true}
           open={this.state.open}
         >
-          <FlatButton label="開始" onTouchTap={() => { this.playlist.play(); }}/>
-          <audio ref={(playlist) => { this.playlist = playlist; }}>
-            {source}
-          </audio>
+          <FlatButton label="開始" onTouchTap={() => { this.audioPlayer.start(); }}/>
+          <AudioPlayer
+            ref={(audioPlayer) => { this.audioPlayer = audioPlayer; }}
+            playlist={this.props.playlist}
+          />
         </Dialog>
       </div>
     )
@@ -291,7 +294,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(AppActions, dispatch)
+  actions: bindActionCreators(MenuActions, dispatch)
 })
 
 Menubar.defaultProps = {
