@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import * as AppActions from '../actions';
-import RaisedButton from 'material-ui/RaisedButton';
+import * as AppActions from '../actions/menu';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { blue500, red500, grey600 } from 'material-ui/styles/colors';
+
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import Download from 'material-ui/svg-icons/file/file-download';
@@ -21,16 +27,10 @@ import Settings from 'material-ui/svg-icons/action/settings';
 import PlayList from 'material-ui/svg-icons/av/playlist-play';
 import Check from 'material-ui/svg-icons/navigation/check';
 import Person from 'material-ui/svg-icons/social/person';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import {blue500, red500, grey600} from 'material-ui/styles/colors';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+
 import Divider from '../components/Divider';
 import DLButton from '../components/DLButton';
 import UploadButton from '../components/UploadButton';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
 
 class Menubar extends Component {
 
@@ -44,10 +44,13 @@ class Menubar extends Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleOnSave = this.handleOnSave.bind(this);
+    this.handleOnNext = this.handleOnNext.bind(this);
   }
 
 
   handleOpen() {
+    this.props.actions.playlist();
+    
     this.setState({open: true});
   };
 
@@ -60,6 +63,13 @@ class Menubar extends Component {
     const words = wordType == 4 ? currWords : allWords
 
     this.props.actions.save(words);
+  };
+
+  handleOnNext() {
+    this.props.actions.next(
+      this.props.currUser,
+      this.props.wordType,
+    );
   };
 
   render() {
@@ -75,7 +85,6 @@ class Menubar extends Component {
       style: {
         width: '24px',
         height: '24px',
-        // padding: '0px 4px 0px 4px',
         padding: '0px',
         margin: '0px 4px',
       },
@@ -134,9 +143,12 @@ class Menubar extends Component {
       );
     });
 
-    const source = this.props.playlist.map((item) => {
-      <source src={item.source} type={item.type} />
+    console.log(1111);
+    console.log(this.props.playlist);
+    const source = this.props.playlist.map((item, idx) => {
+      return <source key={idx} src={item.source} type={item.type} />;
     });
+    console.log(source);
 
     return (
       <div style={styles.container}>
@@ -190,12 +202,7 @@ class Menubar extends Component {
           style={styles.style}
           tooltip="次へ"
           tooltipPosition="bottom-center"
-          onTouchTap={ e => {
-            this.props.actions.next(
-              this.props.currUser,
-              this.props.wordType,
-            );
-          }}
+          onTouchTap={this.handleOnNext}
         >
           <ArrowForward color={fillColor} />
         </IconButton>
@@ -258,8 +265,9 @@ class Menubar extends Component {
           modal={true}
           open={this.state.open}
         >
-          <audio controls="controls">
-            
+          <FlatButton label="開始" onTouchTap={() => { this.playlist.play(); }}/>
+          <audio ref={(playlist) => { this.playlist = playlist; }}>
+            {source}
           </audio>
         </Dialog>
       </div>
@@ -286,6 +294,11 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 })
 
+Menubar.defaultProps = {
+  users: [],
+  playlist: [],
+};
+
 Menubar.props = {
   actions: PropTypes.object.isRequired,
   visible: PropTypes.bool,
@@ -298,7 +311,7 @@ Menubar.props = {
   currWords: PropTypes.arrayOf(PropTypes.object),
   uploadStatus: PropTypes.string,
   playlist: PropTypes.arrayOf(PropTypes.object),
-}
+};
 
 export default connect(
   mapStateToProps,

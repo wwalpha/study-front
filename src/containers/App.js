@@ -21,23 +21,21 @@ class App extends Component {
       return <div />;
     }
 
-    if (this.props.words === undefined) {
-      return <div />
+    let words = [];
+    
+    if (this.props.words !== undefined) {
+      this.props.words.forEach((row, i) => {
+        words.push(
+          <Word
+            key={i}
+            datas={row} 
+            visible={this.props.visible}
+            onCheck={this.props.actions.onCheck}
+            onFavorite={this.props.actions.favorite}
+          />
+        );
+      });
     }
-
-    var words = [];
-
-    this.props.words.forEach((row, i) => {
-      words.push(
-        <Word
-          key={i}
-          datas={row} 
-          visible={this.props.visible}
-          onCheck={this.props.actions.onCheck}
-          onFavorite={this.props.actions.favorite}
-        />
-      );
-    });
 
     return (
       <div>

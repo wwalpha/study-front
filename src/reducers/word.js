@@ -4,8 +4,9 @@ const initialState = {
   offset: 7,
   pageIdx: 0,
   totalPages: 0,
-  words:[],
-  currPage:[],
+  words: [],
+  currPage: [],
+  playlist: [],
 }
 
 const word = handleActions({
@@ -102,6 +103,18 @@ const word = handleActions({
 
   "CLEAR_CURRENT": (state, action) => Object.assign({}, state, {
     currPage: [],
+  }),
+
+  "PLAYLIST_REQUEST": (state, action) => Object.assign({}, state, {
+    playlist: [],
+  }),
+
+  "PLAYLIST_SUCCESS": (state, action) => Object.assign({}, state, {
+    playlist: action.payload.datas,
+  }),
+
+  "PLAYLIST_FAILED": (state, action) => Object.assign({}, state, {
+    playlist: [],
   }),
 
 }, initialState);
