@@ -1,7 +1,7 @@
-import { createAction } from 'redux-actions'
-import { URL_TYPE, METHOD, COMMAND } from '../constant/Const'
+import { createAction } from 'redux-actions';
+import { URL_TYPE, METHOD, COMMAND } from '../constant/Const';
 
-export const users = createAction("USERS", () => ({
+export const users = createAction('USERS', () => ({
   types: {
     FETCH_SUCCESS: 'USERS_SUCCESS',
     FETCH_FAILED: 'USERS_FAILED',
@@ -11,10 +11,10 @@ export const users = createAction("USERS", () => ({
   method: METHOD.GET,
 }));
 
-export const onCheck = createAction("CHECKED", (word) => ({
+export const onCheck = createAction('CHECKED', word => ({
   word,
 }));
 
-export const favorite = createAction("FAVORITE", (word) => ({
+export const favorite = createAction('FAVORITE', word => ({
   word,
 }));

@@ -1,18 +1,18 @@
 import fetch from 'isomorphic-fetch';
-import { URL_TYPE, WEB_SITE, METHOD } from '../constant/Const'
+import { URL_TYPE, WEB_SITE, METHOD } from '../constant/Const';
 
-const api = store => next => action => {
-  if (["SWITCH_TYPE"].includes(action.type)) {
+const api = store => next => (action) => {
+  if (['SWITCH_TYPE'].includes(action.type)) {
     next({
-      type: "CLEAR_WORDS",
+      type: 'CLEAR_WORDS',
     });
   }
 
-  if (!["NEXT_PAGE", "SAVE", "USERS", "DOWNLOAD", "PLAYLIST"].includes(action.type)) {
+  if (!['NEXT_PAGE', 'SAVE', 'USERS', 'DOWNLOAD', 'PLAYLIST'].includes(action.type)) {
     return next(action);
   }
 
-  let FETCH_REQUEST = undefined;
+  let FETCH_REQUEST;
   let FETCH_SUCCESS = action.type;
   let FETCH_FAILED = 'EXCEPTION';
 
@@ -22,7 +22,7 @@ const api = store => next => action => {
     FETCH_FAILED = action.payload.types.FETCH_FAILED;
   }
 
-  // before 
+  // before
   if (FETCH_REQUEST !== undefined) {
     next({ type: FETCH_REQUEST });
   }
@@ -35,7 +35,7 @@ const api = store => next => action => {
   let headers = {};
   let body = {};
 
-  switch(urlType) {
+  switch (urlType) {
     case URL_TYPE.USER_COMMON:
       newURL.push(currUser);
       newURL.push(command);
@@ -54,36 +54,36 @@ const api = store => next => action => {
   }
 
   if (action.payload.method === METHOD.POST) {
-    headers =  action.payload.headers;
+    headers = action.payload.headers;
     body = action.payload.body;
   }
 
-  fetch(newURL.join('/'), {
+  return fetch(newURL.join('/'), {
     mode: 'cors',
     method,
     headers,
     body,
   })
-  .then(res => {
+  .then((res) => {
     if (res.status !== 200) {
       console.log(res);
       throw new Error();
     }
-    
+
     return res.json();
   })
-  .then(datas => {
+  .then((datas) => {
     next({
       type: FETCH_SUCCESS,
       payload: {
         datas,
-      }
+      },
     });
   })
   .catch((e) => {
     console.log(e);
     return next({ type: FETCH_FAILED });
-  }); 
-}
+  });
+};
 
 export default api;

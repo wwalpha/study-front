@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions'
+import { handleActions } from 'redux-actions';
 
 const initialState = {
   offset: 7,
@@ -7,29 +7,29 @@ const initialState = {
   words: [],
   currPage: [],
   playlist: [],
-}
+};
 
 const word = handleActions({
 
-  "NEXT_PAGE": (state, action) => {
-    let pageIdx = state.pageIdx;
-    let totalPages = state.totalPages;
+  NEXT_PAGE: (state, action) => {
+    const pageIdx = state.pageIdx;
+    const totalPages = state.totalPages;
 
     if (pageIdx < totalPages) {
-      var prevPageIdx = state.pageIdx + 1;
-      var stateIdx = (prevPageIdx - 1) * state.offset;
-      var endIdx = prevPageIdx * state.offset;
+      const prevPageIdx = state.pageIdx + 1;
+      const stateIdx = (prevPageIdx - 1) * state.offset;
+      const endIdx = prevPageIdx * state.offset;
 
       return Object.assign({}, state, {
         pageIdx: state.pageIdx + 1,
-        currPage: state.words.slice(stateIdx, endIdx), 
+        currPage: state.words.slice(stateIdx, endIdx),
       });
     }
 
-    let datas = action.payload.datas;
-    datas.forEach(r => r.checked = false);
+    const datas = action.payload.datas;
+    datas.forEach(r => (r.checked = false));
 
-    let newWords = state.words === undefined ? datas : state.words.concat(datas);
+    const newWords = state.words === undefined ? datas : state.words.concat(datas);
 
     return Object.assign({}, state, {
       words: newWords,
@@ -39,84 +39,84 @@ const word = handleActions({
     });
   },
 
-  "PREV_PAGE": (state, action) => {
+  PREV_PAGE: (state, action) => {
     if (state.pageIdx === 1) {
       return state;
     }
 
-    var prevPageIdx = state.pageIdx - 1;
-    let startIdx = (prevPageIdx - 1) * state.offset;
-    var endIdx = prevPageIdx * state.offset;
+    const prevPageIdx = state.pageIdx - 1;
+    const startIdx = (prevPageIdx - 1) * state.offset;
+    const endIdx = prevPageIdx * state.offset;
 
     console.log(state.words.slice(startIdx, endIdx));
     return Object.assign({}, state, {
       pageIdx: state.pageIdx - 1,
-      currPage: state.words.slice(startIdx, endIdx), 
+      currPage: state.words.slice(startIdx, endIdx),
     });
   },
 
-  "SAVE": (state, action) => Object.assign({}, state, {
+  SAVE: (state, action) => Object.assign({}, state, {
     pageIdx: 1,
     totalPages: 1,
     currPage: action.payload.datas,
     words: action.payload.datas,
   }),
 
-  "CHECKED": (state, action) => {
+  CHECKED: (state, action) => {
     // copy array
     const p = [].concat(state.currPage);
-    
+
     // find the same word instance
-    const r1 = p.filter(row => row.word === action.payload.word);
+    const r1 = p.filter(row => (row.word === action.payload.word));
 
     // Check value changed
-    r1.forEach(ra => ra.checked = !ra.checked);
+    r1.forEach(ra => (ra.checked = !ra.checked));
 
     return Object.assign({}, state, {
       currPage: p,
     });
   },
 
-  "FAVORITE": (state, action) => {
+  FAVORITE: (state, action) => {
     // copy array
     const p = [].concat(state.currPage);
-    
+
     // find the same word instance
-    const r1 = p.filter(row => row.word === action.payload.word);
+    const r1 = p.filter(row => (row.word === action.payload.word));
 
     // Check value changed
-    r1.forEach(ra => ra.favorite = !ra.favorite);
+    r1.forEach(ra => (ra.favorite = !ra.favorite));
 
     return Object.assign({}, state, {
       currPage: p,
     });
   },
 
-  "DOWNLOAD": (state, action) => Object.assign({}, state, {
+  DOWNLOAD: (state, action) => Object.assign({}, state, {
     fileData: action.payload.datas[0],
   }),
 
-  "CLEAR_WORDS": (state, action) => Object.assign({}, state, {
+  CLEAR_WORDS: (state, action) => Object.assign({}, state, {
     currPage: [],
     words: [],
   }),
 
-  "CLEAR_CURRENT": (state, action) => Object.assign({}, state, {
+  CLEAR_CURRENT: (state, action) => Object.assign({}, state, {
     currPage: [],
   }),
 
-  "PLAYLIST_REQUEST": (state, action) => Object.assign({}, state, {
+  PLAYLIST_REQUEST: (state, action) => Object.assign({}, state, {
     playlist: [],
   }),
 
-  "PLAYLIST_SUCCESS": (state, action) => Object.assign({}, state, {
+  PLAYLIST_SUCCESS: (state, action) => Object.assign({}, state, {
     playlist: action.payload.datas,
   }),
 
-  "PLAYLIST_FAILED": (state, action) => Object.assign({}, state, {
+  PLAYLIST_FAILED: (state, action) => Object.assign({}, state, {
     playlist: [],
   }),
 
 }, initialState);
 
-export default word
+export default word;

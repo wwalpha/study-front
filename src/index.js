@@ -1,16 +1,16 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import App from './containers/App'
-import appStore from './reducers/index'
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import App from './containers/App';
+import appStore from './reducers/index';
+
 
 injectTapEventPlugin();
 
-const root = document.getElementById('root')
+const root = document.getElementById('root');
 
 render(
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -18,5 +18,5 @@ render(
       <App />
     </Provider>
   </MuiThemeProvider>,
-  root
-)
+  root,
+);

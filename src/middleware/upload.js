@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch';
-import { URL_TYPE, WEB_SITE, METHOD, COMMAND } from '../constant/Const'
+import { URL_TYPE, WEB_SITE, METHOD, COMMAND } from '../constant/Const';
 
-const upload = store => next => action => {
-  if (!["UPDATE_SETTINGS"].includes(action.type)) {
+const upload = store => next => (action) => {
+  if (!['UPDATE_SETTINGS'].includes(action.type)) {
     return next(action);
   }
 
@@ -13,9 +13,9 @@ const upload = store => next => action => {
   const newURL = [WEB_SITE];
 
   // start event
-  next({ type: FETCH_REQUEST});
+  next({ type: FETCH_REQUEST });
 
-  switch(urlType) {
+  switch (urlType) {
     case URL_TYPE.USER_COMMON:
       newURL.push(currUser);
       newURL.push(command);
@@ -33,23 +33,23 @@ const upload = store => next => action => {
       break;
   }
 
-  let formData = new FormData();
+  const formData = new FormData();
   formData.append('file', fileData);
 
-  fetch(newURL.join('/'), {
+  return fetch(newURL.join('/'), {
     mode: 'cors',
-    method: 'POST',
+    method,
     body: formData,
   })
-  .then(res => {
+  .then((res) => {
     if (res.status !== 200) {
       console.log(res);
       throw new Error();
     }
-    
+
     store.dispatch({
       type: 'USERS',
-      payload:{
+      payload: {
         types: {
           FETCH_SUCCESS: 'USERS_SUCCESS',
           FETCH_FAILED: 'USERS_FAILED',
@@ -57,15 +57,15 @@ const upload = store => next => action => {
         urlType: URL_TYPE.COMMON,
         command: COMMAND.USERS,
         method: METHOD.GET,
-      }
+      },
     });
 
     return next({ type: FETCH_SUCCESS });
   })
   .catch((error) => {
     console.log(error);
-    return next({ type: FETCH_FAILED});
+    return next({ type: FETCH_FAILED });
   });
-}
+};
 
 export default upload;

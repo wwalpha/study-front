@@ -1,16 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import css from '../../styles/words.css'
 import AddBox from 'material-ui/svg-icons/content/add-box';
 import AddCircle from 'material-ui/svg-icons/content/add-circle';
 import Sound from 'material-ui/svg-icons/av/volume-up';
-import {grey600} from 'material-ui/styles/colors';
+import { grey600 } from 'material-ui/styles/colors';
 
 class Word extends Component {
 
@@ -20,7 +17,7 @@ class Word extends Component {
     this.handleOnCheck = this.handleOnCheck.bind(this);
   }
 
-  handleOnCheck(e) {
+  handleOnCheck() {
     this.props.onCheck(this.props.datas.word);
   }
 
@@ -52,25 +49,25 @@ class Word extends Component {
       visible: {
         display: this.props.visible ? 'inline-flex' : 'none',
       },
-      small:{
+      small: {
         width: '24px',
         height: '24px',
         padding: '0px',
       },
-      smallIcon:{
+      smallIcon: {
         width: '24px',
         height: '24px',
-      }
+      },
     };
 
     return (
-      <div style={{ display: 'flex'}}>
-        <div style={{ display: 'inline-flex', minWidth: '200px'}}>
+      <div style={{ display: 'flex' }}>
+        <div style={{ display: 'inline-flex', minWidth: '200px' }}>
           <Checkbox
             style={styles.checkbox}
             iconStyle={styles.iconStyle}
             checked={this.props.datas.favorite}
-            onCheck={e => { this.props.onFavorite(this.props.datas.word); }}
+            onCheck={() => { this.props.onFavorite(this.props.datas.word); }}
             checkedIcon={<ActionFavorite />}
             uncheckedIcon={<ActionFavoriteBorder />}
           />
@@ -89,7 +86,7 @@ class Word extends Component {
           <IconButton
             style={styles.small}
             iconStyle={styles.smallIcon}
-            href={["http://ejje.weblio.jp/content",this.props.datas.word].join("/")}
+            href={['http://ejje.weblio.jp/content', this.props.datas.word].join('/')}
             target="_blank"
           >
             <AddBox color={grey600} />
@@ -97,11 +94,11 @@ class Word extends Component {
           <IconButton
             style={styles.small}
             iconStyle={styles.smallIcon}
-            href={["http://dict.hjenglish.com/w",this.props.datas.word].join("/")}
+            href={['http://dict.hjenglish.com/w', this.props.datas.word].join('/')}
             target="_blank"
           >
-            <AddCircle color={grey600}/>
-          </IconButton>          
+            <AddCircle color={grey600} />
+          </IconButton>
           <IconButton
             style={styles.small}
             iconStyle={styles.smallIcon}
@@ -109,13 +106,13 @@ class Word extends Component {
               this.audio.play();
             }}
           >
-            <Sound color={grey600}/>
+            <Sound color={grey600} />
           </IconButton>
           <audio ref={(audio) => { this.audio = audio; }} src={this.props.datas.sound} preload="none" />
           <div style={{ paddingLeft: '4px' }} >{this.props.datas.vocabulary}</div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -124,6 +121,6 @@ Word.props = {
   visible: PropTypes.bool,
   onCheck: PropTypes.func,
   onFavorite: PropTypes.func,
-}
+};
 
 export default Word;

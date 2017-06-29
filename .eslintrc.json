@@ -1,13 +1,30 @@
 {
-    "extends": ["eslint:recommended"],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
+    "ecmaFeatures": {
+        "modules": true
+    },
     "plugins": [],
     "parserOptions": {
       "sourceType": "module",
       "allowImportExportEverywhere": false,
       "codeFrame": false
     },
-    "env": {"browser": true},
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+    },
     "globals": {},
     "parser": "babel-eslint",
-    "rules": { "strict": 0 }
+    "rules": {
+      "no-console": 1,
+      "no-param-reassign": [2, { "props": false }],
+      "no-unused-vars": ["error", {"args": "none"}],
+      "react/prop-types": 0,
+      "react/no-array-index-key": 0,
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/prefer-stateless-function": 0,
+      "jsx-a11y/media-has-caption": 0,
+      "max-len": ["error", 160]
+    }
 }

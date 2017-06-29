@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Divider extends Component {
@@ -11,7 +11,7 @@ class Divider extends Component {
       marginLeft: this.props.marginLeft,
       lineHeight: '56px',
       display: 'block',
-    }
+    };
 
     return (
       <span style={Object.assign({}, style, this.props.style)} />
@@ -25,7 +25,7 @@ Divider.defaultProps = {
   height: '32px',
   width: '1px',
   marginLeft: '12px',
-}
+};
 
 Divider.props = {
   color: PropTypes.string,
@@ -34,6 +34,6 @@ Divider.props = {
   width: PropTypes.string,
   marginLeft: PropTypes.string,
   style: PropTypes.object,
-}
+};
 
 export default Divider;

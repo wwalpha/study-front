@@ -20,6 +20,11 @@ module.exports = {
         loaders: ["babel-loader"],
       },
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ["eslint-loader"],
+      },
+      {
         test: /\.html$/,
         loader: "file?name=[name].[ext]",
       },
@@ -28,15 +33,5 @@ module.exports = {
         loaders: ['style-loader', 'css-loader?modules'],
       }
     ],
-//    preLoaders: [
-//      {
-//        test: /\.js$/,
-//        loader: ["source-map-loader"],
-//      }
-//    ],
   },
-//  externals: {
-//     "react": "React",
-//     "react-dom": "ReactDOM"
-//  },
 }

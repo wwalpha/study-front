@@ -1,15 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import Download from 'material-ui/svg-icons/file/file-download';
-import { SaveAs } from '../utils/FileUtils';
-import { blue500 } from 'material-ui/styles/colors';
 
 class AudioPlayer extends Component {
 
   constructor() {
     super();
-    
+
     this.handleOnEnded = this.handleOnEnded.bind(this);
 
     this.state = { pos: 0 };
@@ -25,7 +21,7 @@ class AudioPlayer extends Component {
 
   handleOnEnded() {
     if (this.state.pos === this.props.playlist.length) {
-      this.setState({ pos: 0});
+      this.setState({ pos: 0 });
       return;
     }
 
@@ -50,8 +46,6 @@ class AudioPlayer extends Component {
   }
 
   render() {
-    const { playlist } = this.props;
-
     return (
       <div>
         <audio ref={(audio) => { this.audio = audio; }} />
@@ -64,11 +58,11 @@ class AudioPlayer extends Component {
 AudioPlayer.defaultProps = {
   autoplay: false,
   playlist: [],
-}
+};
 
 AudioPlayer.props = {
   playlist: PropTypes.arrayOf(PropTypes.object),
   autoplay: PropTypes.bool,
-}
+};
 
 export default AudioPlayer;

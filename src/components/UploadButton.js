@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
-import { UPLOAD_STATUS } from '../constant/Const'
+import { UPLOAD_STATUS } from '../constant/Const';
 
 class UploadButton extends Component {
 
-  constructor(){
+  constructor() {
     super();
 
     this.handleOnclick = this.handleOnclick.bind(this);
@@ -57,7 +57,7 @@ class UploadButton extends Component {
 
 UploadButton.defaultProps = {
   onUpload: () => {},
-}
+};
 
 UploadButton.props = {
   fileData: PropTypes.string,
@@ -71,6 +71,6 @@ UploadButton.props = {
   icon: PropTypes.object.isRequired,
   onUpload: PropTypes.func.isRequired,
   uploadStatus: PropTypes.string,
-}
+};
 
 export default UploadButton;
