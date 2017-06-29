@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { URL_TYPE, WEB_SITE, METHOD } from '../constant/Const'
+import { URL_TYPE, WEB_SITE, METHOD, COMMAND } from '../constant/Const'
 
 const upload = store => next => action => {
   if (!["UPDATE_SETTINGS"].includes(action.type)) {
@@ -50,10 +50,13 @@ const upload = store => next => action => {
     store.dispatch({
       type: 'USERS',
       payload:{
-        host: host + "/users",
-        method: 'GET',
-        headers: {},
-        body: {},
+        types: {
+          FETCH_SUCCESS: 'USERS_SUCCESS',
+          FETCH_FAILED: 'USERS_FAILED',
+        },
+        urlType: URL_TYPE.COMMON,
+        command: COMMAND.USERS,
+        method: METHOD.GET,
       }
     });
 

@@ -20932,6 +20932,7 @@ var api = function api(store) {
           }
         });
       }).catch(function (e) {
+        console.log(e);
         return next({ type: FETCH_FAILED });
       });
     };
@@ -21050,10 +21051,13 @@ var upload = function upload(store) {
         store.dispatch({
           type: 'USERS',
           payload: {
-            host: host + "/users",
-            method: 'GET',
-            headers: {},
-            body: {}
+            types: {
+              FETCH_SUCCESS: 'USERS_SUCCESS',
+              FETCH_FAILED: 'USERS_FAILED'
+            },
+            urlType: _Const.URL_TYPE.COMMON,
+            command: _Const.COMMAND.USERS,
+            method: _Const.METHOD.GET
           }
         });
 
