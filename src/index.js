@@ -7,7 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from './containers/App';
 import appStore from './reducers/index';
 
-
 injectTapEventPlugin();
 
 const root = document.getElementById('root');

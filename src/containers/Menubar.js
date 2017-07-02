@@ -226,13 +226,15 @@ class Menubar extends Component {
           onTouchTap={this.props.actions.download}
           color={fillColor}
         />
-        <IconButton
+        <UploadButton
           style={styles.style}
+          iconStyle={styles.style}
           tooltip="Upload"
           tooltipPosition="bottom-center"
-        >
-          <Upload color={fillColor} />
-        </IconButton>
+          icon={<Upload color={fillColor} />}
+          onUpload={this.props.actions.upload}
+          uploadStatus={this.props.uploadStatus}
+        />
         <IconButton
           style={styles.style}
           tooltip="PlayList"

@@ -24,6 +24,7 @@ export const COMMAND = {
   NEXT_PAGE: 'nextpage',
   SAVE: 'save',
   DOWNLOAD: 'download',
+  UPLOAD: 'upload',
   SETTINGS: 'settings',
   PLAYLIST: 'playlist',
 };

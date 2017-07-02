@@ -1,8 +1,8 @@
-import fetch from 'isomorphic-fetch';
+// import fetch from 'isomorphic-fetch';
 import { URL_TYPE, WEB_SITE, METHOD, COMMAND } from '../constant/Const';
 
 const upload = store => next => (action) => {
-  if (!['UPDATE_SETTINGS'].includes(action.type)) {
+  if (!['UPDATE_SETTINGS', 'UPLOAD'].includes(action.type)) {
     return next(action);
   }
 

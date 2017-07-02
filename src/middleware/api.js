@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import { URL_TYPE, WEB_SITE, METHOD } from '../constant/Const';
 
 const api = store => next => (action) => {
@@ -32,8 +31,17 @@ const api = store => next => (action) => {
   const { currUser, wordType } = store.getState().app;
   const newURL = [WEB_SITE];
 
-  let headers = {};
-  let body = {};
+  const headers = { 'Content-Type': 'application/json' };
+  
+  let urlParams = {
+    mode: 'cors',
+    method,
+    headers: Object.assign({}, headers, action.payload.headers),
+  };
+
+  if (action.payload.method === METHOD.POST) {
+    urlParams = Object.assign({}, urlParams, { body: action.payload.body });
+  }
 
   switch (urlType) {
     case URL_TYPE.USER_COMMON:
@@ -53,17 +61,7 @@ const api = store => next => (action) => {
       break;
   }
 
-  if (action.payload.method === METHOD.POST) {
-    headers = action.payload.headers;
-    body = action.payload.body;
-  }
-
-  return fetch(newURL.join('/'), {
-    mode: 'cors',
-    method,
-    headers,
-    body,
-  })
+  return fetch(newURL.join('/'), urlParams)
   .then((res) => {
     if (res.status !== 200) {
       console.log(res);

@@ -47,6 +47,19 @@ export const download = createAction('DOWNLOAD', () => ({
   method: METHOD.GET,
 }));
 
+/** Upload action */
+export const upload = createAction('UPLOAD', file => ({
+  types: {
+    FETCH_REQUEST: 'UPLOAD_REQUEST',
+    FETCH_SUCCESS: 'UPLOAD_SUCCESS',
+    FETCH_FAILED: 'UPLOAD_FAILED',
+  },
+  urlType: URL_TYPE.USER_COMMON,
+  command: COMMAND.UPLOAD,
+  method: METHOD.POST,
+  fileData: file,
+}));
+
 /** playlist */
 export const playlist = createAction('PLAYLIST', () => ({
   types: {
