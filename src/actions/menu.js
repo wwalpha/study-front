@@ -86,6 +86,10 @@ export const updateSettings = createAction('UPDATE_SETTINGS', file => ({
 }));
 
 /** user switch */
-export const userChange = createAction('USER_CHANGE', index => ({
+export const userChanged = createAction('USER_CHANGED', index => ({
+  index,
+}));
+
+export const ctgChanged = createAction('CTG_CHANGED', index => ({
   index,
 }));

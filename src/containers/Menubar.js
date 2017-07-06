@@ -8,6 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField';
+
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import { grey600 } from 'material-ui/styles/colors';
 
@@ -46,6 +48,7 @@ class Menubar extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleOnSave = this.handleOnSave.bind(this);
     this.handleOnNext = this.handleOnNext.bind(this);
+    this.handleCtgChange = this.handleCtgChange.bind(this);
   }
 
 
@@ -71,6 +74,22 @@ class Menubar extends Component {
       this.props.currUser,
       this.props.wordType,
     );
+  }
+
+  handleCtgChange(event, index, values) {
+    this.props.actions.ctgChanged(values);
+  }
+
+  menuItems(values) {
+    return this.props.names.map((name) => (
+      <MenuItem
+        key={name}
+        insetChildren={true}
+        checked={values && values.indexOf(name) > -1}
+        value={name}
+        primaryText={name}
+      />
+    ));
   }
 
   render() {
@@ -262,6 +281,14 @@ class Menubar extends Component {
         >
           {menuItems}
         </IconMenu>
+        <SelectField
+          multiple
+          hintText="Select a name"
+          value={this.props.ctgValues}
+          onChange={this.handleCtgChange}
+        >
+          {this.menuItems(this.props.ctgValues)}
+        </SelectField>
         <span
           style={{
             position: 'absolute',
@@ -299,6 +326,8 @@ const mapStateToProps = state => ({
   currWords: state.word.currPage,
   uploadStatus: state.app.uploadStatus,
   playlist: state.word.playlist,
+  ctgNames: state.app.ctgNames,
+  ctgValues: state.app.ctgValues,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -322,9 +351,12 @@ Menubar.props = {
   currWords: PropTypes.arrayOf(PropTypes.object),
   uploadStatus: PropTypes.string,
   playlist: PropTypes.arrayOf(PropTypes.object),
+  ctgNames: PropTypes.arrayOf(PropTypes.string),
+  ctgValues: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Menubar);
+

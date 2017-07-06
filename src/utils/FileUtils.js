@@ -1,4 +1,4 @@
-const SaveAs = function saveAs(uri, filename) {
+const SaveAs = function (uri, filename) {
   const link = document.createElement('a');
 
   if (typeof link.download === 'string') {

@@ -11,6 +11,17 @@ export const users = createAction('USERS', () => ({
   method: METHOD.GET,
 }));
 
+export const userProps = createAction('USER_PROPS', () => ({
+  types: {
+    FETCH_REQUEST: 'USER_PROPS_REQUEST',
+    FETCH_SUCCESS: 'USER_PROPS_SUCCESS',
+    FETCH_FAILED: 'USER_PROPS_FAILED',
+  },
+  urlType: URL_TYPE.USER_COMMON,
+  command: COMMAND.USER_PROPS,
+  method: METHOD.GET,
+}));
+
 export const onCheck = createAction('CHECKED', word => ({
   word,
 }));

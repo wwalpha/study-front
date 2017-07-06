@@ -1,7 +1,7 @@
-// export const WEB_SITE = 'http://localhost:8080/studysite';
-export const WEB_SITE = '.';
+export const WEB_SITE = 'http://localhost:8080/studysite';
+// export const WEB_SITE = '.';
 
-export const VERSION = 'Ver1.0.0';
+export const VERSION = 'Ver1.0.1';
 
 export const METHOD = {
   GET: 'GET',
@@ -21,6 +21,7 @@ export const URL_TYPE = {
 
 export const COMMAND = {
   USERS: 'users',
+  USER_PROPS: 'userprops',
   NEXT_PAGE: 'nextpage',
   SAVE: 'save',
   DOWNLOAD: 'download',

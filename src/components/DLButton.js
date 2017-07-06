@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import Download from 'material-ui/svg-icons/file/file-download';
 import { blue500 } from 'material-ui/styles/colors';
-import { SaveAs } from '../utils/FileUtils';
+import SaveAs from '../utils/FileUtils';
 
 class DLButton extends Component {
 

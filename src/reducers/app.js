@@ -9,6 +9,7 @@ const initialState = {
   checkedUser: 0,
   wordType: '1',
   uploadStatus: '0',
+  userProps:{},
 };
 
 const app = handleActions({
@@ -50,6 +51,17 @@ const app = handleActions({
 
   UPDATE_SETTINGS_FAILED: (state, action) => Object.assign({}, state, {
     uploadStatus: UPLOAD_STATUS.READY,
+  }),
+
+  USER_PROPS_REQUEST: (state, action) => Object.assign({}, state, {
+  }),
+
+  USER_PROPS_SUCCESS: (state, action) => Object.assign({}, state, {
+    userProps: action.payload.datas,
+  }),
+
+  USER_PROPS_FAILED: (state, action) => Object.assign({}, state, {
+    userProps: {},
   }),
 
   EXCEPTION: (state, action) => Object.assign({}, state, {
