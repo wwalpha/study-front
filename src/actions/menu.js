@@ -85,11 +85,18 @@ export const updateSettings = createAction('UPDATE_SETTINGS', file => ({
   fileData: file,
 }));
 
-/** user switch */
-export const userChanged = createAction('USER_CHANGED', index => ({
+export const userChanged = createAction('USER_CHANGED', (index) => ({
+  types: {
+    FETCH_REQUEST: 'USER_PROPS_REQUEST',
+    FETCH_SUCCESS: 'USER_PROPS_SUCCESS',
+    FETCH_FAILED: 'USER_PROPS_FAILED',
+  },
+  urlType: URL_TYPE.USER_COMMON,
+  command: COMMAND.USER_PROPS,
+  method: METHOD.GET,
   index,
 }));
 
-export const ctgChanged = createAction('CTG_CHANGED', index => ({
-  index,
+export const ctgChanged = createAction('CTG_CHANGED', values => ({
+  values,
 }));

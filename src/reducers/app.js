@@ -6,10 +6,12 @@ const initialState = {
   visible: false,
   users: [],
   currUser: '',
-  checkedUser: 0,
+  checkedUser: -1,
   wordType: '1',
   uploadStatus: '0',
   userProps:{},
+  ctgNames: [],
+  ctgValues: [],
 };
 
 const app = handleActions({
@@ -19,12 +21,9 @@ const app = handleActions({
   }),
 
   USERS_SUCCESS: (state, action) => {
-    const user = action.payload.datas === undefined ? '' : action.payload.datas[0];
-
     return Object.assign({}, state, {
       initCmp: 100,
       users: action.payload.datas,
-      currUser: user,
     });
   },
 
@@ -34,11 +33,6 @@ const app = handleActions({
 
   SWITCH: (state, action) => Object.assign({}, state, {
     visible: !state.visible,
-  }),
-
-  USER_CHANGE: (state, action) => Object.assign({}, state, {
-    checkedUser: action.payload.index,
-    currUser: state.users[action.payload.index],
   }),
 
   UPDATE_SETTINGS_REQUEST: (state, action) => Object.assign({}, state, {
@@ -54,14 +48,24 @@ const app = handleActions({
   }),
 
   USER_PROPS_REQUEST: (state, action) => Object.assign({}, state, {
+    checkedUser: action.payload.index,
+    currUser: state.users[action.payload.index],
   }),
 
   USER_PROPS_SUCCESS: (state, action) => Object.assign({}, state, {
     userProps: action.payload.datas,
+    ctgNames: action.payload.datas.ctgNames,
+    ctgValues: [],
   }),
 
   USER_PROPS_FAILED: (state, action) => Object.assign({}, state, {
     userProps: {},
+    ctgNames: [],
+    ctgValues: [],
+  }),
+
+  CTG_CHANGED: (state, action) => Object.assign({}, state, {
+    ctgValues: action.payload.values,
   }),
 
   EXCEPTION: (state, action) => Object.assign({}, state, {

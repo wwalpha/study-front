@@ -7,7 +7,7 @@ const api = store => next => (action) => {
     });
   }
 
-  if (!['NEXT_PAGE', 'SAVE', 'USERS', 'DOWNLOAD', 'PLAYLIST'].includes(action.type)) {
+  if (!['NEXT_PAGE', 'SAVE', 'USERS', 'DOWNLOAD', 'PLAYLIST', 'USER_CHANGED'].includes(action.type)) {
     return next(action);
   }
 
@@ -23,16 +23,25 @@ const api = store => next => (action) => {
 
   // before
   if (FETCH_REQUEST !== undefined) {
-    next({ type: FETCH_REQUEST });
+    next({ type: FETCH_REQUEST, payload: action.payload });
   }
 
   // Get params
   const { command, method, urlType } = action.payload;
-  const { currUser, wordType } = store.getState().app;
+  const { currUser, wordType, ctgValues } = store.getState().app;
   const newURL = [WEB_SITE];
 
+  // no user select
+  console.log("11111111111111111");
+  console.log(currUser);
+
+  if (action.type !== 'USERS' && currUser === '') {
+    alert("ユーザ選択してから操作ください");
+    return next(action);
+  }
+
   const headers = { 'Content-Type': 'application/json' };
-  
+
   let urlParams = {
     mode: 'cors',
     method,
@@ -61,7 +70,13 @@ const api = store => next => (action) => {
       break;
   }
 
-  return fetch(newURL.join('/'), urlParams)
+  let url = newURL.join('/');
+
+  if (ctgValues !== undefined) {
+    url = url + "?categories=" + ctgValues.join(',');
+  }
+
+  return fetch(url, urlParams)
   .then((res) => {
     if (res.status !== 200) {
       console.log(res);

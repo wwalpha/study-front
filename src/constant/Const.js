@@ -1,7 +1,7 @@
-export const WEB_SITE = 'http://localhost:8080/studysite';
-// export const WEB_SITE = '.';
+// export const WEB_SITE = 'http://localhost:8080/studysite';
+export const WEB_SITE = '.';
 
-export const VERSION = 'Ver1.0.1';
+export const VERSION = 'Ver1.0.2';
 
 export const METHOD = {
   GET: 'GET',

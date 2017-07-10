@@ -35,6 +35,56 @@ import UploadButton from '../components/UploadButton';
 import AudioPlayer from '../components/AudioPlayer';
 import { VERSION } from '../constant/Const';
 
+const styles = {
+  style: {
+    width: '24px',
+    height: '24px',
+    padding: '0px',
+    margin: '0px 4px',
+  },
+  container: {
+    height: '36px',
+    display: 'flex',
+    backgroundColor: '#D8D8D8',
+    alignItems: 'center',
+  },
+  radioButton: {
+    rippleColor: 'red',
+    width: '24px',
+    margin: '0px 2px',
+  },
+  iconStyle: {
+    width: 'inherit',
+  },
+  radioButtonGroup: {
+    display: 'flex',
+    width: 'auto',
+    marginLeft: '12px',
+  },
+  selectedMenuItemStyle: {
+    minWidth: '120px',
+  },
+  menuItemStyle: {
+    lineHeight: '24px',
+    minHeight: '24px',
+    fontSize: '14px',
+  },
+  innerDivStyle: {
+    paddingRight: '8px',
+    paddingLeft: '36px',
+    fontSize: '14px',
+  },
+  itemIconStyle: {
+    top: '0px',
+    left: '4px',
+    margin: '0px',
+  },
+  sfStyle: {
+    fontSize: '14px',
+    width: '160px',
+  }
+};
+
 class Menubar extends Component {
 
   constructor() {
@@ -50,7 +100,6 @@ class Menubar extends Component {
     this.handleOnNext = this.handleOnNext.bind(this);
     this.handleCtgChange = this.handleCtgChange.bind(this);
   }
-
 
   handleOpen() {
     this.props.actions.playlist();
@@ -81,13 +130,17 @@ class Menubar extends Component {
   }
 
   menuItems(values) {
-    return this.props.names.map((name) => (
+    return this.props.ctgNames.map((name) => (
       <MenuItem
         key={name}
-        insetChildren={true}
-        checked={values && values.indexOf(name) > -1}
+        leftIcon={values && values.indexOf(name) > -1 
+          ? <Check style={styles.itemIconStyle} /> 
+          : null
+        }
         value={name}
         primaryText={name}
+        style={styles.menuItemStyle}
+        innerDivStyle={styles.innerDivStyle}
       />
     ));
   }
@@ -102,54 +155,10 @@ class Menubar extends Component {
       />,
     ];
 
-    const styles = {
-      style: {
-        width: '24px',
-        height: '24px',
-        padding: '0px',
-        margin: '0px 4px',
-      },
-      container: {
-        height: '36px',
-        display: 'flex',
-        backgroundColor: '#D8D8D8',
-        alignItems: 'center',
-      },
-      radioButton: {
-        rippleColor: 'red',
-        width: '24px',
-        margin: '0px 2px',
-      },
-      iconStyle: {
-        width: 'inherit',
-      },
-      radioButtonGroup: {
-        display: 'flex',
-        width: 'auto',
-        marginLeft: '12px',
-      },
-      selectedMenuItemStyle: {
-        minWidth: '120px',
-      },
-      menuItemStyle: {
-        lineHeight: '24px',
-        minHeight: '24px',
-        fontSize: '14px',
-      },
-      innerDivStyle: {
-        paddingRight: '8px',
-        paddingLeft: '48px',
-      },
-    };
-
     const fillColor = grey600;
 
     const icon = this.props.visible ? <VisibilityOff color={fillColor} /> : <Visibility color={fillColor} />;
     const tooltip = this.props.visible ? '語彙非表示' : '語彙表示';
-    // const color1 = this.props.type === '1' ? greenA200 : fillColor;
-    // const color2 = this.props.type === '2' ? greenA200 : fillColor;
-    // const color3 = this.props.type === '3' ? greenA200 : fillColor;
-    // const color4 = this.props.type === '4' ? greenA200 : fillColor;
 
     const menuItems = this.props.users.map((user, idx) =>
       (
@@ -159,7 +168,7 @@ class Menubar extends Component {
           style={styles.menuItemStyle}
           innerDivStyle={styles.innerDivStyle}
           leftIcon={this.props.checkedUser === idx ? <Check style={{ margin: '0px' }} /> : null}
-          onTouchTap={() => { this.props.actions.userChange(idx); }}
+          onTouchTap={() => { this.props.actions.userChanged(idx); }}
         />
       ),
     );
@@ -283,7 +292,9 @@ class Menubar extends Component {
         </IconMenu>
         <SelectField
           multiple
-          hintText="Select a name"
+          hintText="カテゴリー"
+          style={styles.sfStyle}
+          listStyle={{ padding: '8px 0px 8px 8px' }}
           value={this.props.ctgValues}
           onChange={this.handleCtgChange}
         >
@@ -337,6 +348,7 @@ const mapDispatchToProps = dispatch => ({
 Menubar.defaultProps = {
   users: [],
   playlist: [],
+  ctgNames: [],
 };
 
 Menubar.props = {
