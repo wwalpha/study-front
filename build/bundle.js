@@ -3226,10 +3226,10 @@ exports.default = _shallowEqual2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-// export const WEB_SITE = 'http://localhost:8080/studysite';
-var WEB_SITE = exports.WEB_SITE = '.';
+var WEB_SITE = exports.WEB_SITE = 'http://52.192.77.235';
+// export const WEB_SITE = '.';
 
-var VERSION = exports.VERSION = 'Ver1.0.2';
+var VERSION = exports.VERSION = 'Ver1.0.3';
 
 var METHOD = exports.METHOD = {
   GET: 'GET',
@@ -52827,10 +52827,6 @@ var api = function api(store) {
           ctgValues = _store$getState$app.ctgValues;
 
       var newURL = [_Const.WEB_SITE];
-
-      // no user select
-      console.log("11111111111111111");
-      console.log(currUser);
 
       if (action.type !== 'USERS' && currUser === '') {
         alert("ユーザ選択してから操作ください");

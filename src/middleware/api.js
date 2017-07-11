@@ -31,10 +31,6 @@ const api = store => next => (action) => {
   const { currUser, wordType, ctgValues } = store.getState().app;
   const newURL = [WEB_SITE];
 
-  // no user select
-  console.log("11111111111111111");
-  console.log(currUser);
-
   if (action.type !== 'USERS' && currUser === '') {
     alert("ユーザ選択してから操作ください");
     return next(action);
