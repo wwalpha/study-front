@@ -100,3 +100,6 @@ export const userChanged = createAction('USER_CHANGED', (index) => ({
 export const ctgChanged = createAction('CTG_CHANGED', values => ({
   values,
 }));
+
+export const routeEng = createAction('ROUTE_ENG');
+export const routeCalc = createAction('ROUTE_CALC');

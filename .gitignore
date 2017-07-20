@@ -2,3 +2,5 @@
 /build/simsun.ttc
 /build/bundle.js.map
 /.vscode/*
+/start.bat
+/build.bat
