@@ -12,6 +12,11 @@ module.exports = {
     contentBase: 'build',
     port: 3000
   },
+  resolve: {
+    alias: {
+      root: path.resolve(__dirname, 'src/')
+    }
+  },
   module: {
     loaders: [
       {

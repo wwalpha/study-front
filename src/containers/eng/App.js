@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Menubar from './Menubar';
-import Functionbar from './Functionbar';
-import Word from '../components/Word';
-import * as AppActions from '../actions';
+import Word from '../../components/Word';
+import * as AppActions from '../../actions';
 
-class EnglishApp extends Component {
+class App extends Component {
 
   /* 初回の描画時にのみ呼び出される */
   componentWillMount() {
@@ -39,7 +38,6 @@ class EnglishApp extends Component {
 
     return (
       <div>
-        <Functionbar />
         <Menubar />
         <div style={{ height: '8px' }} />
         {words}
@@ -58,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
 
-EnglishApp.props = {
+App.props = {
   actions: PropTypes.object.isRequired,
   words: PropTypes.arrayOf(PropTypes.object),
   initCmp: PropTypes.number,
@@ -68,4 +66,4 @@ EnglishApp.props = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EnglishApp);
+)(App);

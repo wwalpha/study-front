@@ -1,7 +1,7 @@
 export const WEB_SITE = 'http://52.192.77.235';
 // export const WEB_SITE = '.';
 
-export const VERSION = 'Ver1.0.3';
+export const VERSION = 'Ver1.0.4';
 
 export const METHOD = {
   GET: 'GET',
@@ -28,4 +28,9 @@ export const COMMAND = {
   UPLOAD: 'upload',
   SETTINGS: 'settings',
   PLAYLIST: 'playlist',
+};
+
+export const COMMAND_CALC = {
+  ADD_SINGLE: 'addsingle',
+  ADD_RESULT: 'addresult',
 };
