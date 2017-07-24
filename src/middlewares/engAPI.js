@@ -1,6 +1,6 @@
 import { URL_TYPE, WEB_SITE, METHOD } from '../constant/Const';
 
-const api = store => next => (action) => {
+const engAPI = store => next => (action) => {
   if (['SWITCH_TYPE'].includes(action.type)) {
     next({
       type: 'CLEAR_WORDS',
@@ -95,4 +95,4 @@ const api = store => next => (action) => {
   });
 };
 
-export default api;
+export default engAPI;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import * as MenuActions from 'root/actions/menu';
+import * as Actions from 'root/actions/calc';
 import * as RouteActions from 'root/actions/route';
 
 import Divider from 'root/components/Divider';
@@ -29,6 +29,7 @@ const styles = {
   },
   overlayStyle:{
     borderRadius: '0px',
+    height: '24px',
   },
   labelStyle: {
     padding: '0px',
@@ -49,6 +50,7 @@ class Menubar extends Component {
           buttonStyle={styles.buttonStyle}
           overlayStyle={styles.overlayStyle}
           labelStyle={styles.labelStyle}
+          onTouchTap={this.props.actions.start}
         />
         <RaisedButton
           primary
@@ -64,46 +66,19 @@ class Menubar extends Component {
 }
 
 const mapStateToProps = state => ({
-  visible: state.app.visible,
-  users: state.app.users,
-  currUser: state.app.currUser,
-  checkedUser: state.app.checkedUser,
-  wordType: state.app.wordType,
-  fileData: state.word.fileData,
-  allWords: state.word.words,
-  currWords: state.word.currPage,
-  uploadStatus: state.app.uploadStatus,
-  playlist: state.word.playlist,
-  ctgNames: state.app.ctgNames,
-  ctgValues: state.app.ctgValues,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(MenuActions, dispatch),
+  actions: bindActionCreators(Actions, dispatch),
   routeActions: bindActionCreators(RouteActions, dispatch),
 });
 
 Menubar.defaultProps = {
-  users: [],
-  playlist: [],
-  ctgNames: [],
 };
 
 Menubar.props = {
   actions: PropTypes.func,
   routeActions: PropTypes.func,
-  visible: PropTypes.bool,
-  currUser: PropTypes.string,
-  users: PropTypes.string,
-  checkedUser: PropTypes.number,
-  wordType: PropTypes.string,
-  fileData: PropTypes.string,
-  allWords: PropTypes.arrayOf(PropTypes.object),
-  currWords: PropTypes.arrayOf(PropTypes.object),
-  uploadStatus: PropTypes.string,
-  playlist: PropTypes.arrayOf(PropTypes.object),
-  ctgNames: PropTypes.arrayOf(PropTypes.string),
-  ctgValues: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default connect(

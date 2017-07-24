@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router'
 import logger from 'redux-logger';
-
+import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
@@ -15,7 +15,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import EngApp from './containers/eng/App';
 import CalcApp from './containers/calc/App';
 import * as reducers from './reducers';
-import api from './middlewares/api';
+import calcAPI from './middlewares/calcAPI';
+import engAPI from './middlewares/engAPI';
 import upload from './middlewares/upload';
 import router from './middlewares/router';
 
@@ -35,10 +36,12 @@ const store = createStore(
     router: routerReducer
   }),
   applyMiddleware(
-    api,
+    engAPI,
+    calcAPI,
     upload,
     router,
     logger,
+    thunk,
     rMiddleware,
   ),
 )

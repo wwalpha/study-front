@@ -1,5 +1,5 @@
-export const WEB_SITE = 'http://52.192.77.235';
-// export const WEB_SITE = '.';
+// export const WEB_SITE = 'http://52.192.77.235';
+export const WEB_SITE = 'http://localhost:8080/studysite';
 
 export const VERSION = 'Ver1.0.4';
 
@@ -32,5 +32,5 @@ export const COMMAND = {
 
 export const COMMAND_CALC = {
   ADD_SINGLE: 'addsingle',
-  ADD_RESULT: 'addresult',
+  ANSWER: 'answer',
 };

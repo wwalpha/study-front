@@ -8,15 +8,25 @@ export const start = createAction('CALC_START', () => ({
 }));
 
 /** next */
-export const next = createAction('CALC_NEXT', () => ({
+export const addNext = createAction('ADD_NEXT', () => ({
   urlType: URL_TYPE.COMMAND,
   command: COMMAND_CALC.ADD_SINGLE,
-  method: METHOD.POST,
+  method: METHOD.GET,
 }));
 
 /** next */
-export const result = createAction('CALC_RESULT', () => ({
+export const answer = createAction('ANSWER', (calcInfo, resultNum) => ({
   urlType: URL_TYPE.COMMAND,
-  command: COMMAND_CALC.ADD_RESULT,
-  method: METHOD.GET,
+  command: COMMAND_CALC.ANSWER,
+  method: METHOD.POST,
+  headers: {
+    Accept: 'application/json, text/plain, */*',
+    ContentType: 'application/json',
+  },
+  body: JSON.stringify({
+    leftNum: calcInfo.leftNum,
+    operator: calcInfo.operator,
+    rightNum: calcInfo.rightNum,
+    resultNum: resultNum,
+  }),
 }));
