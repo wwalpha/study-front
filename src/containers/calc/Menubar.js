@@ -59,6 +59,7 @@ class Menubar extends Component {
           buttonStyle={styles.buttonStyle}
           overlayStyle={styles.overlayStyle}
           labelStyle={styles.labelStyle}
+          onTouchTap={this.props.actions.score}
         />
       </div>
     );

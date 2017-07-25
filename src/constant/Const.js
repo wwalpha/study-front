@@ -32,5 +32,6 @@ export const COMMAND = {
 
 export const COMMAND_CALC = {
   ADD_SINGLE: 'addsingle',
+  SCORE: 'score',
   ANSWER: 'answer',
 };

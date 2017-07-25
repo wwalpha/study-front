@@ -8,7 +8,7 @@ const calcAPI = store => next => (action) => {
     return next(action);
   }
 
-  if (!['ANSWER', 'ADD_NEXT'].includes(action.type)) {
+  if (!['ANSWER', 'ADD_NEXT', 'CALC_SCORE'].includes(action.type)) {
     return next(action);
   }
 
@@ -48,9 +48,7 @@ const calcAPI = store => next => (action) => {
 
   return fetch(url, urlParams)
   .then((res) => {
-
-    console.log(res.status);
-    // no content
+        // no content
     if (res.status === 204) {
       if (['ANSWER'].includes(action.type)) {
         return store.dispatch(actions.addNext());
@@ -58,19 +56,12 @@ const calcAPI = store => next => (action) => {
 
       return next(action);
     }
-
+    
     if (res.status === 200) {
       return res.json();
     }
-
-    next(action);
   })
   .then((datas) => {
-
-    // if (['ANSWER'].includes(action.type)) {
-    //   store.dispatch(actions.addNext());
-    // }
-
     next({
       type: FETCH_SUCCESS,
       payload: {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import Menubar from './Menubar';
+import Score from 'root/components/calc/Score';
 import * as Actions from 'root/actions/calc';
 
 const styles = {
@@ -27,7 +28,7 @@ const styles = {
   button:{
     display: 'inline-flex',
     fontSize: '14px',
-  }
+  },
 }
 class CalculateApp extends Component {
 
@@ -43,9 +44,12 @@ class CalculateApp extends Component {
   }
 
   render() {
-    const row = [];
+
+    let display = [];
 
     if (Object.keys(this.props.calcInfo).length !== 0) {
+      const row = [];
+
       row.push(<span key={1}>{this.props.calcInfo.leftNum}</span>);
       row.push(<span key={2}>{this.props.calcInfo.operator}</span>);
       row.push(<span key={3}>{this.props.calcInfo.rightNum}</span>);
@@ -65,14 +69,24 @@ class CalculateApp extends Component {
           onTouchTap={this.handleOnclick}
         />
       );
+
+      display.push(
+        <div style={styles.container}>
+          {row}
+        </div>
+      );
+    }
+
+    if (Object.keys(this.props.scoreInfo).length !== 0) {
+      display.push(
+        <Score scoreInfo={this.props.scoreInfo} />
+      );
     }
 
     return (
       <div>
         <Menubar />
-        <div style={styles.container}>
-          {row}
-        </div>
+        {display}
       </div>
     );
   } 
@@ -80,6 +94,7 @@ class CalculateApp extends Component {
 
 const mapStateToProps = state => ({
   calcInfo: state.calc.calcInfo,
+  scoreInfo: state.calc.scoreInfo,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -89,8 +104,9 @@ const mapDispatchToProps = dispatch => ({
 CalculateApp.props = {
   actions: PropTypes.func,
   calcInfo: PropTypes.object,
+  scoreInfo: PropTypes.arrayOf(PropTypes.object),
 };
-
+ 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

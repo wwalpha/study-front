@@ -7,6 +7,12 @@ export const start = createAction('CALC_START', () => ({
   method: METHOD.GET,
 }));
 
+export const score = createAction('CALC_SCORE', () => ({
+  urlType: URL_TYPE.COMMAND,
+  command: COMMAND_CALC.SCORE,
+  method: METHOD.GET,
+}));
+
 /** next */
 export const addNext = createAction('ADD_NEXT', () => ({
   urlType: URL_TYPE.COMMAND,
