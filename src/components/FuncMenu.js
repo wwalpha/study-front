@@ -57,7 +57,7 @@ class FuncMenu extends Component {
           onTouchTap={this.props.actions.routeEng}
         />
         <MenuItem
-          primaryText="すうがく"
+          primaryText="さんすう"
           style={styles.menuItemStyle}
           innerDivStyle={styles.innerDivStyle}
           onTouchTap={this.props.actions.routeCalc}

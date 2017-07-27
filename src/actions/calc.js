@@ -7,6 +7,8 @@ export const start = createAction('CALC_START', () => ({
   method: METHOD.GET,
 }));
 
+export const end = createAction('CALC_END');
+
 export const score = createAction('CALC_SCORE', () => ({
   urlType: URL_TYPE.COMMAND,
   command: COMMAND_CALC.SCORE,

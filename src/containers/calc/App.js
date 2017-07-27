@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import Menubar from './Menubar';
+import Menubar from 'root/components/calc/Menubar';
+import SubMenubar from 'root/components/calc/SubMenubar';
 import Score from 'root/components/calc/Score';
 import * as Actions from 'root/actions/calc';
 
@@ -86,6 +87,7 @@ class CalculateApp extends Component {
     return (
       <div>
         <Menubar />
+        <SubMenubar starting={this.props.starting} />
         {display}
       </div>
     );
@@ -95,6 +97,7 @@ class CalculateApp extends Component {
 const mapStateToProps = state => ({
   calcInfo: state.calc.calcInfo,
   scoreInfo: state.calc.scoreInfo,
+  starting: state.calc.starting,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -105,6 +108,7 @@ CalculateApp.props = {
   actions: PropTypes.func,
   calcInfo: PropTypes.object,
   scoreInfo: PropTypes.arrayOf(PropTypes.object),
+  starting: PropTypes.bool,
 };
  
 export default connect(

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 const styles = {
   container: {
-    display: 'flex',
-    //justifyContent: 'space-around',
-    flexWrap: 'wrap',
     padding: '8px'
+  },
+  body: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   item: {
     display: 'table',
@@ -51,9 +52,17 @@ class Score extends Component {
       );
     });
 
+    const total = this.props.scoreInfo.length
+    const correct = this.props.scoreInfo.filter(value => value.success === '1').length;
+
+    console.log(this.props.scoreInfo);
+
     return (
       <div style={styles.container}>
-        {result}
+        <div>かいとう数：{total}　　せいかい数：{correct}　　とくてん：{correct / total * 100}点</div>
+        <div style={styles.container}>
+          {result}
+        </div>
       </div>
     );
   }
@@ -61,6 +70,7 @@ class Score extends Component {
 
 Score.props = {
   scoreInfo: PropTypes.arrayOf(PropTypes.object),
+  starting: PropTypes.bool,
 };
 
 export default Score;
