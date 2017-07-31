@@ -48,7 +48,6 @@ const word = handleActions({
     const startIdx = (prevPageIdx - 1) * state.offset;
     const endIdx = prevPageIdx * state.offset;
 
-    console.log(state.words.slice(startIdx, endIdx));
     return Object.assign({}, state, {
       pageIdx: state.pageIdx - 1,
       currPage: state.words.slice(startIdx, endIdx),

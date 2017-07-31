@@ -55,8 +55,6 @@ class Score extends Component {
     const total = this.props.scoreInfo.length
     const correct = this.props.scoreInfo.filter(value => value.success === '1').length;
 
-    console.log(this.props.scoreInfo);
-
     return (
       <div style={styles.container}>
         <div>かいとう数：{total}　　せいかい数：{correct}　　とくてん：{correct / total * 100}点</div>

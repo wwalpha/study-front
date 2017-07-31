@@ -52,7 +52,7 @@ class SubMenubar extends Component {
 
   handleOnstart(){
     this.setState({
-      endDate: Moment().add(5,'s').format('YYYYMMDD HH:mm:ss'),
+      endDate: Moment().add(10,'m').format('YYYYMMDD HH:mm:ss'),
       showCountdown: true,
     })
 

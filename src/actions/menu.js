@@ -26,6 +26,7 @@ export const save = createAction('SAVE', (words) => {
     word: e.word,
     checked: e.checked,
     favorite: e.favorite,
+    category: e.category,
   }));
 
   return {

@@ -59,7 +59,9 @@ class CalculateApp extends Component {
         <input
           key={5}
           ref={(resultNum) => { this.resultNum = resultNum; }} 
-          type="number" pattern="\d*" style={styles.input}
+          type="text"
+          pattern="[0-9]*"
+          style={styles.input}
         />);
       row.push(
         <RaisedButton
