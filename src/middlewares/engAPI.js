@@ -68,7 +68,7 @@ const engAPI = store => next => (action) => {
 
   let url = newURL.join('/');
 
-  if (ctgValues !== undefined) {
+  if (ctgValues !== undefined && ctgValues.length !== 0) {
     url = url + "?categories=" + ctgValues.join(',');
   }
 

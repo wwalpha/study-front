@@ -27,6 +27,11 @@ const word = handleActions({
     }
 
     const datas = action.payload.datas;
+
+    if (datas === undefined) {
+      return state;
+    }
+
     datas.forEach(r => (r.checked = false));
 
     const newWords = state.words === undefined ? datas : state.words.concat(datas);

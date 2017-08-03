@@ -31,6 +31,7 @@ const styles = {
     fontSize: '14px',
   },
 }
+
 class CalculateApp extends Component {
 
   constructor() {
@@ -40,12 +41,16 @@ class CalculateApp extends Component {
   }
 
   handleOnclick() {
+    // if not type a value, skip
+    if (this.resultNum.value === '' || this.resultNum.value === undefined) {
+      return;
+    }
+
     this.props.actions.answer(this.props.calcInfo, this.resultNum.value);
     this.resultNum.value = ''; 
   }
 
   render() {
-
     let display = [];
 
     if (Object.keys(this.props.calcInfo).length !== 0) {
