@@ -26,7 +26,7 @@ class Menubar extends Component {
       <div style={styles.container}>
         <FuncMenu actions={this.props.routeActions} />
         <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
-        <FuncGroup />
+        <FuncGroup actions={this.props.actions} />
       </div>
     );
   }

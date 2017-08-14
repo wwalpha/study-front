@@ -46,7 +46,11 @@ class CalculateApp extends Component {
       return;
     }
 
-    this.props.actions.answer(this.props.calcInfo, this.resultNum.value);
+    this.props.actions.answer(
+      this.props.calcInfo,
+      this.resultNum.value,
+      this.props.startTime,
+    );
     this.resultNum.value = ''; 
   }
 
@@ -105,6 +109,7 @@ const mapStateToProps = state => ({
   calcInfo: state.calc.calcInfo,
   scoreInfo: state.calc.scoreInfo,
   starting: state.calc.starting,
+  startTime: state.calc.startTime,
 });
 
 const mapDispatchToProps = dispatch => ({

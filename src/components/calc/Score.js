@@ -32,7 +32,7 @@ class Score extends Component {
   render() {
 
     if (Object.keys(this.props.scoreInfo).length === 0) {
-      return <div />;
+      return <div key={0}/>;
     }
 
     const result = this.props.scoreInfo.map((value, idx) => {
@@ -52,13 +52,13 @@ class Score extends Component {
       );
     });
 
-    const total = this.props.scoreInfo.length
+    const total = this.props.scoreInfo.length;
     const correct = this.props.scoreInfo.filter(value => value.success === '1').length;
 
     return (
       <div style={styles.container}>
-        <div>かいとう数：{total}　　せいかい数：{correct}　　とくてん：{correct / total * 100}点</div>
-        <div style={styles.container}>
+        <div key={1}>かいとう数：{total}　　せいかい数：{correct}　　とくてん：{Math.floor(correct / total * 100)}点</div>
+        <div key={2} style={styles.container}>
           {result}
         </div>
       </div>

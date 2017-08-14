@@ -1,14 +1,14 @@
-import { WEB_SITE, METHOD } from '../constant/Const';
+import { WEB_SITE, METHOD, COMMAND_CALC } from '../constant/Const';
 import * as actions from 'root/actions/calc';
 
 const calcAPI = store => next => (action) => {
   if (['CALC_START'].includes(action.type)) {
-    store.dispatch(actions.addNext());
+    store.dispatch(actions.next());
 
     return next(action);
   }
 
-  if (!['ANSWER', 'ADD_NEXT', 'CALC_SCORE'].includes(action.type)) {
+  if (!['ANSWER', 'NEXT', 'CALC_SCORE'].includes(action.type)) {
     return next(action);
   }
 
@@ -27,8 +27,21 @@ const calcAPI = store => next => (action) => {
     next({ type: FETCH_REQUEST, payload: action.payload });
   }
 
-  // Get params
-  const { command, method } = action.payload;
+  let command = action.payload.command;
+  const method = action.payload.method;
+
+  if (action.type === 'NEXT') {
+    const operator = store.getState().calc.operator;
+
+    if (operator === '+') {
+      command = COMMAND_CALC.ADD_SINGLE;
+    }
+
+    if (operator === '-') {
+      command = COMMAND_CALC.MINUS_SINGLE;
+    }
+  }
+
   const newURL = [WEB_SITE];
   newURL.push(command);
 
@@ -51,7 +64,7 @@ const calcAPI = store => next => (action) => {
         // no content
     if (res.status === 204) {
       if (['ANSWER'].includes(action.type)) {
-        return store.dispatch(actions.addNext());
+        return store.dispatch(actions.next());
       }
 
       return next(action);

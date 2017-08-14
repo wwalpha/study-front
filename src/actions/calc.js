@@ -3,7 +3,6 @@ import { URL_TYPE, METHOD, COMMAND_CALC } from '../constant/Const';
 
 export const start = createAction('CALC_START', () => ({
   urlType: URL_TYPE.COMMAND,
-  command: COMMAND_CALC.ADD_SINGLE,
   method: METHOD.GET,
 }));
 
@@ -16,14 +15,13 @@ export const score = createAction('CALC_SCORE', () => ({
 }));
 
 /** next */
-export const addNext = createAction('ADD_NEXT', () => ({
+export const next = createAction('NEXT', () => ({
   urlType: URL_TYPE.COMMAND,
-  command: COMMAND_CALC.ADD_SINGLE,
   method: METHOD.GET,
 }));
 
 /** next */
-export const answer = createAction('ANSWER', (calcInfo, resultNum) => ({
+export const answer = createAction('ANSWER', (calcInfo, resultNum, startTime) => ({
   urlType: URL_TYPE.COMMAND,
   command: COMMAND_CALC.ANSWER,
   method: METHOD.POST,
@@ -35,6 +33,12 @@ export const answer = createAction('ANSWER', (calcInfo, resultNum) => ({
     leftNum: calcInfo.leftNum,
     operator: calcInfo.operator,
     rightNum: calcInfo.rightNum,
-    resultNum: resultNum,
+    resultNum,
+    startTime,
   }),
+}));
+
+/** opertator change */
+export const optChange = createAction('OPT_CHANGE', (operator) => ({
+  operator,
 }));

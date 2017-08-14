@@ -24,7 +24,6 @@ import * as MenuActions from 'root/actions/menu';
 import * as RouteActions from 'root/actions/route';
 
 import Divider from 'root/components/Divider';
-import DLButton from 'root/components/DLButton';
 import FuncGroup from 'root/components/english/FuncGroup';
 import FuncMenu from 'root/components/FuncMenu';
 import AudioPlayer from 'root/components/AudioPlayer';
@@ -195,13 +194,6 @@ class Menubar extends Component {
         >
           <Save color={fillColor} />
         </IconButton>
-        <DLButton
-          style={styles.style}
-          fileName="words.txt"
-          fileData={this.props.fileData}
-          onTouchTap={this.props.actions.download}
-          color={fillColor}
-        />
         <IconButton
           style={styles.style}
           tooltip="PlayList"

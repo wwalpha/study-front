@@ -28,27 +28,27 @@ class FuncGroup extends Component {
       <RadioButtonGroup
         name="calc"
         style={styles.radioButtonGroup}
-        defaultSelected="1"
-        onChange={() => {
-          this.props.actions.xxx();
+        defaultSelected="+"
+        onChange={(e) => {
+          this.props.actions.optChange(e.target.value);
         }}
       >
         <RadioButton
-          value="1"
+          value="+"
           style={styles.radioButton}
           iconStyle={styles.iconStyle}
           checkedIcon={<Add />}
           uncheckedIcon={<Add />}
         />
         <RadioButton
-          value="2"
+          value="-"
           style={styles.radioButton}
           iconStyle={styles.iconStyle}
           checkedIcon={<Minus />}
           uncheckedIcon={<Minus />}
         />
         <RadioButton
-          value="3"
+          value="*"
           style={styles.radioButton}
           iconStyle={styles.iconStyle}
           checkedIcon={<Multiply />}
