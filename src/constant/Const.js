@@ -1,7 +1,7 @@
 export const WEB_SITE = 'http://52.192.77.235';
 // export const WEB_SITE = 'http://localhost:8080';
 
-export const VERSION = 'Ver1.0.4.4';
+export const VERSION = 'Ver1.0.4.5';
 
 export const METHOD = {
   GET: 'GET',
@@ -28,6 +28,7 @@ export const COMMAND = {
   UPLOAD: 'upload',
   SETTINGS: 'settings',
   PLAYLIST: 'playlist',
+  STATISTIC: 'statistic',
 };
 
 export const COMMAND_CALC = {

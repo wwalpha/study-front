@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import SelectField from 'material-ui/SelectField';
+// import SelectField from 'material-ui/SelectField';
 
 import { grey600 } from 'material-ui/styles/colors';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
@@ -19,6 +19,8 @@ import Save from 'material-ui/svg-icons/content/save';
 import PlayList from 'material-ui/svg-icons/av/playlist-play';
 import Check from 'material-ui/svg-icons/navigation/check';
 import Person from 'material-ui/svg-icons/social/person';
+import History from 'material-ui/svg-icons/action/history';
+import List from 'material-ui/svg-icons/action/list';
 
 import * as MenuActions from 'root/actions/menu';
 import * as RouteActions from 'root/actions/route';
@@ -41,6 +43,13 @@ const styles = {
     display: 'flex',
     backgroundColor: '#D8D8D8',
     alignItems: 'center',
+  },
+  subContainer: {
+    height: '24px',
+    fontSize: '14px',
+    //display: 'flex',
+    backgroundColor: '#D8D8D8',
+    //alignItems: 'center',
   },
   selectedMenuItemStyle: {
     minWidth: '120px',
@@ -73,6 +82,7 @@ class Menubar extends Component {
 
     this.state = {
       open: false,
+      showHistory: false,
     };
 
     this.handleOpen = this.handleOpen.bind(this);
@@ -80,6 +90,7 @@ class Menubar extends Component {
     this.handleOnSave = this.handleOnSave.bind(this);
     this.handleOnNext = this.handleOnNext.bind(this);
     this.handleCtgChange = this.handleCtgChange.bind(this);
+    this.handleOnHistory = this.handleOnHistory.bind(this);
   }
 
   handleOpen() {
@@ -106,8 +117,22 @@ class Menubar extends Component {
     );
   }
 
-  handleCtgChange(event, index, values) {
-    this.props.actions.ctgChanged(values);
+  handleCtgChange(e, o) {
+    const selected = o.props.value;
+    const newValues = this.props.ctgValues;
+    const index = newValues.indexOf(selected);
+
+    if (index === -1) {
+      newValues.push(selected);
+    } else {
+      newValues.splice(index, 1);
+    }
+
+    this.props.actions.ctgChanged(newValues);
+  }
+
+  handleOnHistory() {
+    this.setState({ showHistory: !this.state.showHistory });
   }
 
   menuItems(values) {
@@ -157,92 +182,109 @@ class Menubar extends Component {
     const source = this.props.playlist.map((item, idx) => <source key={idx} src={item.source} type={item.type} />);
 
     return (
-      <div style={styles.container}>
-        <FuncMenu actions={this.props.routeActions} />
-        <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
-        <FuncGroup actions={this.props.actions} /> 
-        <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
-        <IconButton
-          style={styles.style}
-          tooltip="前へ"
-          tooltipPosition="bottom-center"
-          onTouchTap={this.props.actions.prev}
-        >
-          <ArrowBack color={fillColor} />
-        </IconButton>
-        <IconButton
-          style={styles.style}
-          tooltip="次へ"
-          tooltipPosition="bottom-center"
-          onTouchTap={this.handleOnNext}
-        >
-          <ArrowForward color={fillColor} />
-        </IconButton>
-        <IconButton
-          style={styles.style}
-          tooltip={tooltip}
-          tooltipPosition="bottom-center"
-          onTouchTap={this.props.actions.switchs}
-        >
-          {icon}
-        </IconButton>
-        <IconButton
-          style={styles.style}
-          tooltip="保存"
-          tooltipPosition="bottom-center"
-          onTouchTap={this.handleOnSave}
-        >
-          <Save color={fillColor} />
-        </IconButton>
-        <IconButton
-          style={styles.style}
-          tooltip="PlayList"
-          tooltipPosition="bottom-center"
-          onTouchTap={this.handleOpen}
-        >
-          <PlayList color={fillColor} />
-        </IconButton>
-        <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
-        <IconMenu
-          iconButtonElement={<IconButton><Person color={fillColor} /></IconButton>}
-          anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          selectedMenuItemStyle={styles.selectedMenuItemStyle}
-          listStyle={styles.selectedMenuItemStyle}
-        >
-          {menuItems}
-        </IconMenu>
-        <SelectField
-          multiple
-          hintText="カテゴリー"
-          style={styles.sfStyle}
-          listStyle={{ padding: '8px 0px 8px 8px' }}
-          value={this.props.ctgValues}
-          onChange={this.handleCtgChange}
-        >
-          {this.menuItems(this.props.ctgValues)}
-        </SelectField>
-        <span
-          style={{
-            position: 'absolute',
-            right: '16px',
-            fontSize: '12px',
-          }}
-        >
-          {VERSION}
-        </span>
-        <Dialog
-          title="Today's playlist"
-          actions={actions}
-          modal
-          open={this.state.open}
-        >
-          <RaisedButton primary label="開始" onTouchTap={() => { this.audioPlayer.start(); }} />
-          <AudioPlayer
-            ref={(audioPlayer) => { this.audioPlayer = audioPlayer; }}
-            playlist={this.props.playlist}
-          />
-        </Dialog>
+      <div>
+        <div style={styles.container}>
+          <FuncMenu actions={this.props.routeActions} />
+          <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
+          <FuncGroup actions={this.props.actions} /> 
+          <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
+          <IconButton
+            style={styles.style}
+            tooltip="前へ"
+            tooltipPosition="bottom-center"
+            onTouchTap={this.props.actions.prev}
+          >
+            <ArrowBack color={fillColor} />
+          </IconButton>
+          <IconButton
+            style={styles.style}
+            tooltip="次へ"
+            tooltipPosition="bottom-center"
+            onTouchTap={this.handleOnNext}
+          >
+            <ArrowForward color={fillColor} />
+          </IconButton>
+          <IconButton
+            style={styles.style}
+            tooltip={tooltip}
+            tooltipPosition="bottom-center"
+            onTouchTap={this.props.actions.switchs}
+          >
+            {icon}
+          </IconButton>
+          <IconButton
+            style={styles.style}
+            tooltip="保存"
+            tooltipPosition="bottom-center"
+            onTouchTap={this.handleOnSave}
+          >
+            <Save color={fillColor} />
+          </IconButton>
+          <IconButton
+            style={styles.style}
+            tooltip="PlayList"
+            tooltipPosition="bottom-center"
+            onTouchTap={this.handleOpen}
+          >
+            <PlayList color={fillColor} />
+          </IconButton>
+          <IconButton
+            style={styles.style}
+            tooltip="履歴"
+            tooltipPosition="bottom-center"
+            onTouchTap={this.handleOnHistory}
+          >
+            <History color={fillColor} />
+          </IconButton>
+          <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
+          <IconMenu
+            iconButtonElement={<IconButton><Person color={fillColor} /></IconButton>}
+            anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            selectedMenuItemStyle={styles.selectedMenuItemStyle}
+            listStyle={styles.selectedMenuItemStyle}
+          >
+            {menuItems}
+          </IconMenu>
+          <IconMenu
+            multiple
+            iconButtonElement={<IconButton><List color={fillColor} /></IconButton>}
+            anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+            targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+            selectedMenuItemStyle={styles.selectedMenuItemStyle}
+            listStyle={styles.selectedMenuItemStyle}
+            value={this.props.ctgValues}
+            onItemTouchTap={this.handleCtgChange}
+          >
+            {this.menuItems(this.props.ctgValues)}
+          </IconMenu>
+          <span
+            style={{
+              position: 'absolute',
+              right: '16px',
+              fontSize: '12px',
+            }}
+          >
+            {VERSION}
+          </span>
+          <Dialog
+            title="Today's playlist"
+            actions={actions}
+            modal
+            open={this.state.open}
+          >
+            <RaisedButton primary label="開始" onTouchTap={() => { this.audioPlayer.start(); }} />
+            <AudioPlayer
+              ref={(audioPlayer) => { this.audioPlayer = audioPlayer; }}
+              playlist={this.props.playlist}
+            />
+          </Dialog>
+        </div>
+        <div style={Object.assign({}, styles.subContainer, { display: this.state.showHistory ? 'inherit' : 'none' } )}>
+          <span style={{ marginLeft: '8px'}}>
+            新単語：{this.props.statistic.newCount === undefined ? 0 : this.props.statistic.newCount}　
+            復習：{this.props.statistic.reviewCount === undefined ? 0 : this.props.statistic.reviewCount}</span>
+        </div>
       </div>
     );
   }
@@ -259,6 +301,7 @@ const mapStateToProps = state => ({
   currWords: state.word.currPage,
   uploadStatus: state.app.uploadStatus,
   playlist: state.word.playlist,
+  statistic: state.word.statistic,
   ctgNames: state.app.ctgNames,
   ctgValues: state.app.ctgValues,
 });
@@ -287,6 +330,7 @@ Menubar.props = {
   currWords: PropTypes.arrayOf(PropTypes.object),
   uploadStatus: PropTypes.string,
   playlist: PropTypes.arrayOf(PropTypes.object),
+  statistic: PropTypes.object,
   ctgNames: PropTypes.arrayOf(PropTypes.string),
   ctgValues: PropTypes.arrayOf(PropTypes.string),
 };

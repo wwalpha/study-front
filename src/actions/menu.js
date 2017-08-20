@@ -101,3 +101,14 @@ export const userChanged = createAction('USER_CHANGED', (index) => ({
 export const ctgChanged = createAction('CTG_CHANGED', values => ({
   values,
 }));
+
+export const statistic = createAction('STATISTIC', () => ({
+  types: {
+    FETCH_REQUEST: 'STATISTIC_REQUEST',
+    FETCH_SUCCESS: 'STATISTIC_SUCCESS',
+    FETCH_FAILED: 'STATISTIC_FAILED',
+  },
+  urlType: URL_TYPE.USER_COMMON,
+  command: COMMAND.STATISTIC,
+  method: METHOD.GET,
+}));

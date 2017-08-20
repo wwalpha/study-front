@@ -7,6 +7,7 @@ const initialState = {
   words: [],
   currPage: [],
   playlist: [],
+  statistic: [],
 };
 
 const word = handleActions({
@@ -119,6 +120,18 @@ const word = handleActions({
 
   PLAYLIST_FAILED: (state, action) => Object.assign({}, state, {
     playlist: [],
+  }),
+
+  STATISTIC_REQUEST: (state, action) => Object.assign({}, state, {
+    statistic: {},
+  }),
+
+  STATISTIC_SUCCESS: (state, action) => Object.assign({}, state, {
+    statistic: action.payload.datas,
+  }),
+
+  STATISTIC_FAILED: (state, action) => Object.assign({}, state, {
+    statistic: {},
   }),
 
 }, initialState);

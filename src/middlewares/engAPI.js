@@ -1,4 +1,5 @@
 import { URL_TYPE, WEB_SITE, METHOD } from '../constant/Const';
+import * as actions from 'root/actions/menu';
 
 const engAPI = store => next => (action) => {
   if (['SWITCH_TYPE'].includes(action.type)) {
@@ -7,7 +8,7 @@ const engAPI = store => next => (action) => {
     });
   }
 
-  if (!['NEXT_PAGE', 'SAVE', 'USERS', 'DOWNLOAD', 'PLAYLIST', 'USER_CHANGED'].includes(action.type)) {
+  if (!['NEXT_PAGE', 'SAVE', 'USERS', 'DOWNLOAD', 'PLAYLIST', 'USER_CHANGED', 'STATISTIC'].includes(action.type)) {
     return next(action);
   }
 
@@ -88,6 +89,10 @@ const engAPI = store => next => (action) => {
         datas,
       },
     });
+
+    if (['USER_CHANGED', 'SAVE'].includes(action.type)) {
+      store.dispatch(actions.statistic());
+    }
   })
   .catch((e) => {
     console.log(e);
