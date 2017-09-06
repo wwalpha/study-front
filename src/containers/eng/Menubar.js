@@ -8,8 +8,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-// import SelectField from 'material-ui/SelectField';
-
 import { grey600 } from 'material-ui/styles/colors';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import ArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
@@ -29,28 +27,11 @@ import Divider from 'root/components/Divider';
 import FuncGroup from 'root/components/english/FuncGroup';
 import FuncMenu from 'root/components/FuncMenu';
 import AudioPlayer from 'root/components/AudioPlayer';
-import { VERSION } from 'root/constant/Const';
+import { VERSION, isIOS } from 'root/constant/Const';
+import css from 'styles/menubar.css';
 
+const ios = isIOS();
 const styles = {
-  style: {
-    width: '24px',
-    height: '24px',
-    padding: '0px',
-    margin: '0px 4px',
-  },
-  container: {
-    height: '36px',
-    display: 'flex',
-    backgroundColor: '#D8D8D8',
-    alignItems: 'center',
-  },
-  subContainer: {
-    height: '24px',
-    fontSize: '14px',
-    //display: 'flex',
-    backgroundColor: '#D8D8D8',
-    //alignItems: 'center',
-  },
   selectedMenuItemStyle: {
     minWidth: '120px',
   },
@@ -64,15 +45,10 @@ const styles = {
     paddingLeft: '36px',
     fontSize: '14px',
   },
-  itemIconStyle: {
-    top: '0px',
-    left: '4px',
-    margin: '0px',
+  icon: {
+    width: ios ? '36px' : '24px',
+    height: ios ? '36px' : '24px',
   },
-  sfStyle: {
-    fontSize: '14px',
-    width: '160px',
-  }
 };
 
 class Menubar extends Component {
@@ -139,10 +115,6 @@ class Menubar extends Component {
     return this.props.ctgNames.map((name) => (
       <MenuItem
         key={name}
-        leftIcon={values && values.indexOf(name) > -1 
-          ? <Check style={styles.itemIconStyle} /> 
-          : null
-        }
         value={name}
         primaryText={name}
         style={styles.menuItemStyle}
@@ -181,56 +153,75 @@ class Menubar extends Component {
 
     const source = this.props.playlist.map((item, idx) => <source key={idx} src={item.source} type={item.type} />);
 
+    const history = this.props.statistic.map((item, idx) => 
+      (
+        <span key={idx} style={{ marginLeft: '8px'}}>
+          {item.studyTime}:【 新単語：{item.newCount}　復習：{item.reviewCount} 】
+        </span>
+      ),
+    );
+    
+    <span style={{ marginLeft: '8px'}}>
+    新単語：{this.props.statistic.newCount === undefined ? 0 : this.props.statistic.newCount}　
+    復習：{this.props.statistic.reviewCount === undefined ? 0 : this.props.statistic.reviewCount}
+    </span>
+
     return (
       <div>
-        <div style={styles.container}>
+        <div className={css.container}>
           <FuncMenu actions={this.props.routeActions} />
           <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
           <FuncGroup actions={this.props.actions} /> 
           <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
           <IconButton
-            style={styles.style}
-            tooltip="前へ"
+            className={css.iconButton}
+            iconStyle={styles.icon}
+            tooltip={ios ? '' : '前へ'}
             tooltipPosition="bottom-center"
             onTouchTap={this.props.actions.prev}
           >
             <ArrowBack color={fillColor} />
           </IconButton>
           <IconButton
-            style={styles.style}
-            tooltip="次へ"
+            className={css.iconButton}
+            iconStyle={styles.icon}
+            tooltip={ios ? '' : '次へ'}
             tooltipPosition="bottom-center"
             onTouchTap={this.handleOnNext}
           >
             <ArrowForward color={fillColor} />
           </IconButton>
           <IconButton
-            style={styles.style}
-            tooltip={tooltip}
+            className={css.iconButton}
+            iconStyle={styles.icon}
+            tooltip={ios ? '' : tooltip}
             tooltipPosition="bottom-center"
             onTouchTap={this.props.actions.switchs}
           >
             {icon}
           </IconButton>
           <IconButton
-            style={styles.style}
-            tooltip="保存"
+            className={css.iconButton}
+            iconStyle={styles.icon}
+            tooltip={ios ? '' : '保存'}
             tooltipPosition="bottom-center"
             onTouchTap={this.handleOnSave}
           >
             <Save color={fillColor} />
           </IconButton>
           <IconButton
-            style={styles.style}
-            tooltip="PlayList"
+            className={css.iconButton}
+            iconStyle={styles.icon}
+            tooltip={ios ? '' : 'PlayList'}
             tooltipPosition="bottom-center"
             onTouchTap={this.handleOpen}
           >
             <PlayList color={fillColor} />
           </IconButton>
           <IconButton
-            style={styles.style}
-            tooltip="履歴"
+            className={css.iconButton}
+            iconStyle={styles.icon}
+            tooltip={ios ? '' : '履歴'}
             tooltipPosition="bottom-center"
             onTouchTap={this.handleOnHistory}
           >
@@ -238,7 +229,15 @@ class Menubar extends Component {
           </IconButton>
           <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
           <IconMenu
-            iconButtonElement={<IconButton><Person color={fillColor} /></IconButton>}
+            className={css.iconMenu}
+            iconButtonElement={
+              <IconButton
+                className={css.iconButton}
+                iconStyle={styles.icon}
+              >
+                <Person color={fillColor} />
+              </IconButton>
+            }
             anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
             targetOrigin={{ horizontal: 'left', vertical: 'top' }}
             selectedMenuItemStyle={styles.selectedMenuItemStyle}
@@ -248,13 +247,22 @@ class Menubar extends Component {
           </IconMenu>
           <IconMenu
             multiple
-            iconButtonElement={<IconButton><List color={fillColor} /></IconButton>}
+            className={css.iconMenu}
+            iconButtonElement={
+              <IconButton
+                className={css.iconButton}
+                iconStyle={styles.icon}
+              >
+                <List color={fillColor} />
+              </IconButton>
+            }
             anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
             targetOrigin={{ horizontal: 'left', vertical: 'top' }}
             selectedMenuItemStyle={styles.selectedMenuItemStyle}
             listStyle={styles.selectedMenuItemStyle}
             value={this.props.ctgValues}
             onItemTouchTap={this.handleCtgChange}
+            touchTapCloseDelay={0}
           >
             {this.menuItems(this.props.ctgValues)}
           </IconMenu>
@@ -280,10 +288,8 @@ class Menubar extends Component {
             />
           </Dialog>
         </div>
-        <div style={Object.assign({}, styles.subContainer, { display: this.state.showHistory ? 'inherit' : 'none' } )}>
-          <span style={{ marginLeft: '8px'}}>
-            新単語：{this.props.statistic.newCount === undefined ? 0 : this.props.statistic.newCount}　
-            復習：{this.props.statistic.reviewCount === undefined ? 0 : this.props.statistic.reviewCount}</span>
+        <div className={css.subContainer} style={{ display: this.state.showHistory ? 'inherit' : 'none' }}>
+          {history}
         </div>
       </div>
     );

@@ -40,6 +40,12 @@ class CalculateApp extends Component {
     this.handleOnclick = this.handleOnclick.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.resultNum !== undefined) {
+      this.resultNum.focus();
+    }
+  }
+
   handleOnclick() {
     // if not type a value, skip
     if (this.resultNum.value === '' || this.resultNum.value === undefined) {
@@ -83,7 +89,7 @@ class CalculateApp extends Component {
       );
 
       display.push(
-        <div style={styles.container}>
+        <div key={7} style={styles.container}>
           {row}
         </div>
       );

@@ -14,7 +14,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      root: path.resolve(__dirname, 'src/')
+      root: path.resolve(__dirname, 'src/'),
+      styles: path.resolve(__dirname, 'styles/'),
     }
   },
   module: {

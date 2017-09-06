@@ -8,6 +8,17 @@ import AddBox from 'material-ui/svg-icons/content/add-box';
 import AddCircle from 'material-ui/svg-icons/content/add-circle';
 import Sound from 'material-ui/svg-icons/av/volume-up';
 import { grey600 } from 'material-ui/styles/colors';
+import { isIOS } from 'root/constant/Const';
+import css from 'styles/words.css';
+
+const ios = isIOS();
+const kvArray = [['A', String.fromCharCode(230)], ['B', String.fromCharCode(593)], 
+  ['E', String.fromCharCode(601)], ['F', String.fromCharCode(643)], ['N', String.fromCharCode(331)], 
+  ['Q', String.fromCharCode(652)], ['R', String.fromCharCode(596)], ['T', String.fromCharCode(240)],
+  ['V', String.fromCharCode(658)], ['W', String.fromCharCode(629)], ['Z', String.fromCharCode(603)],  
+  [':', String.fromCharCode(720)], ['5', String.fromCharCode(39)], ['7', String.fromCharCode(44)],
+];
+const map = new Map(kvArray);
 
 class Word extends Component {
 
@@ -23,36 +34,8 @@ class Word extends Component {
 
   render() {
     const styles = {
-      checkbox: {
-        width: 'inherit',
-      },
       iconStyle: {
         marginRight: '6px',
-      },
-      kpp: {
-        fontFamily: 'KingsoftPhoneticPlain',
-        fontSize: '16px',
-      },
-      simsun: {
-        fontFamily: 'SimSun',
-      },
-      word: {
-        display: 'inline-flex',
-        minWidth: '200px',
-      },
-      pronounce: {
-        fontFamily: 'KingsoftPhoneticPlain',
-        fontSize: '16px',
-        minWidth: '150px',
-        paddingTop: '4px',
-      },
-      visible: {
-        display: this.props.visible ? 'inline-flex' : 'none',
-      },
-      small: {
-        width: '24px',
-        height: '24px',
-        padding: '0px',
       },
       smallIcon: {
         width: '24px',
@@ -60,11 +43,27 @@ class Word extends Component {
       },
     };
 
+    const pronounce = [];
+
+    if (ios) {
+      Array.prototype.forEach.call(this.props.datas.pronounce, function(s) {
+        var value = map.get(s);
+  
+        if (value !== undefined) {
+          pronounce.push(value);
+        } else {
+          pronounce.push(s);
+        }
+      });
+    } else {
+      pronounce.push(this.props.datas.pronounce);
+    }
+
     return (
       <div style={{ display: 'flex' }}>
-        <div style={{ display: 'inline-flex', minWidth: '200px' }}>
+        <div className={css.word}>
           <Checkbox
-            style={styles.checkbox}
+            className={css.checkbox}
             iconStyle={styles.iconStyle}
             checked={this.props.datas.favorite}
             onCheck={() => { this.props.onFavorite(this.props.datas.word); }}
@@ -72,19 +71,19 @@ class Word extends Component {
             uncheckedIcon={<ActionFavoriteBorder />}
           />
           <Checkbox
-            style={styles.checkbox}
+            className={css.checkbox}
             iconStyle={styles.iconStyle}
             checked={this.props.datas.checked}
             onCheck={this.handleOnCheck}
           />
           <div>{this.props.datas.word}</div>
         </div>
-        <div style={styles.pronounce}>
-          <span>{this.props.datas.pronounce}</span>
+        <div className={css.pronounce}>
+          <span>{pronounce.join('')}</span>
         </div>
-        <div style={styles.visible}>
+        <div className={css.visible} style={{ display: this.props.visible ? '' : 'none' }}>
           <IconButton
-            style={styles.small}
+            className={css.small}
             iconStyle={styles.smallIcon}
             href={['http://ejje.weblio.jp/content', this.props.datas.word].join('/')}
             target="_blank"
@@ -92,7 +91,7 @@ class Word extends Component {
             <AddBox color={grey600} />
           </IconButton>
           <IconButton
-            style={styles.small}
+            className={css.small}
             iconStyle={styles.smallIcon}
             href={['http://dict.hjenglish.com/w', this.props.datas.word].join('/')}
             target="_blank"
@@ -100,7 +99,7 @@ class Word extends Component {
             <AddCircle color={grey600} />
           </IconButton>
           <IconButton
-            style={styles.small}
+            className={css.small}
             iconStyle={styles.smallIcon}
             onTouchTap={() => {
               this.audio.play();

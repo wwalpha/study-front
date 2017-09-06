@@ -123,7 +123,7 @@ const word = handleActions({
   }),
 
   STATISTIC_REQUEST: (state, action) => Object.assign({}, state, {
-    statistic: {},
+    statistic: [],
   }),
 
   STATISTIC_SUCCESS: (state, action) => Object.assign({}, state, {
@@ -131,7 +131,7 @@ const word = handleActions({
   }),
 
   STATISTIC_FAILED: (state, action) => Object.assign({}, state, {
-    statistic: {},
+    statistic: [],
   }),
 
 }, initialState);

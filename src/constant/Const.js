@@ -1,7 +1,7 @@
 export const WEB_SITE = 'http://52.192.77.235';
-// export const WEB_SITE = 'http://localhost:8080';
+// export const WEB_SITE = 'http://172.16.80.208:8080';
 
-export const VERSION = 'Ver1.0.4.5';
+export const VERSION = 'Ver1.0.4.8';
 
 export const METHOD = {
   GET: 'GET',
@@ -36,4 +36,14 @@ export const COMMAND_CALC = {
   MINUS_SINGLE: 'minsingle',
   SCORE: 'score',
   ANSWER: 'answer',
+};
+
+export const isIOS = function() {
+  const ua = navigator.userAgent.toLowerCase();
+
+  if(ua.indexOf('iphone') > 0 || ua.indexOf('ipad') > 0){
+    return true;
+  }
+
+  return false;
 };
