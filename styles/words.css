@@ -28,7 +28,15 @@
   line-height: 24px;
 }
 
-@media screen and (max-width: 700px) {
+.vocabulary {
+  padding-left: 4px;
+  font-size: 14px;
+}
+
+@media only screen 
+  and (min-device-width : 375px) 
+  and (max-device-width : 667px) 
+  and (orientation : landscape) {
 
   .word {
     font-size: 20px;
@@ -37,10 +45,12 @@
   }
 
   .pronounce {
-    font-family: 'KingsoftPhoneticPlain';
     font-size: 20px;
     min-width: 200px;
     height: 32px;
-    line-height: 32px;
+  }
+
+  .vocabulary {
+    font-size: 16px;
   }
 }
