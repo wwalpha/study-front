@@ -21,7 +21,7 @@ export const next = createAction('NEXT', () => ({
 }));
 
 /** next */
-export const answer = createAction('ANSWER', (calcInfo, resultNum, startTime) => ({
+export const answer = createAction('ANSWER', (calcInfo, startTime) => ({
   urlType: URL_TYPE.COMMAND,
   command: COMMAND_CALC.ANSWER,
   method: METHOD.POST,
@@ -30,10 +30,14 @@ export const answer = createAction('ANSWER', (calcInfo, resultNum, startTime) =>
     ContentType: 'application/json',
   },
   body: JSON.stringify({
-    leftNum: calcInfo.leftNum,
-    operator: calcInfo.operator,
-    rightNum: calcInfo.rightNum,
-    resultNum,
+    num1: calcInfo.num1,
+    num2: calcInfo.num2,
+    num3: calcInfo.num3,
+    num4: calcInfo.num4,
+    num5: calcInfo.num5,
+    opt1: calcInfo.opt1,
+    opt2: calcInfo.opt2,
+    opt3: calcInfo.opt3,
     startTime,
   }),
 }));

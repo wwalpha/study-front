@@ -1,0 +1,7 @@
+.container {
+  display: inline-flex;
+}
+
+.checkbox {
+  width: 32px !important;
+}

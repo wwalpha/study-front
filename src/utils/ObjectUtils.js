@@ -14,4 +14,4 @@ const isEmpty = function (uri, filename) {
   }
 };
 
-export default ObjectUtils;
+exports.isEmpty = isEmpty;

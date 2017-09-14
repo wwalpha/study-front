@@ -1,3 +1,9 @@
+.row {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+}
+
 .small {
   width: 24px !important;
   height: 24px !important;
@@ -14,9 +20,8 @@
 }
 
 .word {
-  display: inline-flex !important;
   min-width: 200px;
-  height: 24px;
+  display: inline-flex;
   align-items: center;
 }
 
@@ -24,13 +29,15 @@
   font-family: 'KingsoftPhoneticPlain';
   font-size: 16px;
   min-width: 150px;
-  height: 24px;
-  line-height: 24px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .vocabulary {
   padding-left: 4px;
   font-size: 14px;
+  display: inline-flex;
+  align-items: center;
 }
 
 @media only screen 
@@ -38,16 +45,20 @@
   and (max-device-width : 667px) 
   and (orientation : landscape) {
 
+  .row {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+  }
+
   .word {
     font-size: 20px;
-    height: 32px;
     min-width: 220px;
   }
 
   .pronounce {
     font-size: 20px;
     min-width: 200px;
-    height: 32px;
   }
 
   .vocabulary {

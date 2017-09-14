@@ -8,7 +8,8 @@ import * as RouteActions from 'root/actions/route';
 
 import Divider from 'root/components/Divider';
 import FuncMenu from 'root/components/FuncMenu';
-import FuncGroup from './FuncGroup';
+// import FuncGroup from './FuncGroup';
+import MultiGroup from './MultiGroup';
 
 const styles = {
   container: {
@@ -26,7 +27,7 @@ class Menubar extends Component {
       <div style={styles.container}>
         <FuncMenu actions={this.props.routeActions} />
         <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
-        <FuncGroup actions={this.props.actions} />
+        <MultiGroup />
       </div>
     );
   }

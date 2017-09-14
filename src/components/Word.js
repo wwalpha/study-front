@@ -60,7 +60,7 @@ class Word extends Component {
     }
 
     return (
-      <div style={{ display: 'flex' }}>
+      <div className={css.row}>
         <div className={css.word}>
           <Checkbox
             className={css.checkbox}

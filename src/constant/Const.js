@@ -1,7 +1,7 @@
 export const WEB_SITE = 'http://52.192.77.235';
-// export const WEB_SITE = 'http://172.16.80.208:8080';
+// export const WEB_SITE = 'http://localhost:8080';
 
-export const VERSION = 'Ver1.0.4.8';
+export const VERSION = 'Ver1.0.5';
 
 export const METHOD = {
   GET: 'GET',
