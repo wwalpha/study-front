@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as NumberUtils from 'root/utils/NumberUtils';
 import css from 'styles/calc/calculation.css';
+import { CNDT } from 'root/constant/Const';
 
 class Calculation extends Component {
 
@@ -12,47 +13,44 @@ class Calculation extends Component {
     this.handleOnclick = this.handleOnclick.bind(this);
 
     this.state = {
-      inputIdx: 0,
+      inputIdx: 4,
     };
   }
 
+
   componentWillMount() {
-    const rnd = NumberUtils.getRandom(1, this.getRandomMax(this.props.calcInfo));
-    const index = (rnd - 1) * 2;
-    this.setState({ inputIdx: index });
+    if (this.props.conditions[CNDT.BUG]) {
+      const rnd = NumberUtils.getRandom(1, this.getRandomMax(this.props.calcInfo));
+      const index = (rnd - 1) * 2;
+      this.setState({ inputIdx: index });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    const rnd = NumberUtils.getRandom(1, this.getRandomMax(nextProps.calcInfo));
-    const index = (rnd - 1) * 2;
-    this.setState({ inputIdx: index });
+    if (this.props.conditions[CNDT.BUG]) {
+      const rnd = NumberUtils.getRandom(1, this.getRandomMax(nextProps.calcInfo));
+      const index = (rnd - 1) * 2;
+      this.setState({ inputIdx: index });
+    }
   }
   
   handleOnclick() {
     // if not type a value, skip
+    console.log(this.numInput.value);
     if (this.numInput.value === '' || this.numInput.value === undefined) {
       return;
-    } 
-    
-    let calcInfo = Object.assign({}, this.props.calcInfo, {});
-
-    if (this.state.inputIdx === 0) {
-      calcInfo.num1 = this.numInput.value;
-    } else if (this.state.inputIdx === 2) {
-      calcInfo.num2 = this.numInput.value;
-    } else if (this.state.inputIdx === 4) {
-      calcInfo.num3 = this.numInput.value;
-    } else if (this.state.inputIdx === 6) {
-      calcInfo.num4 = this.numInput.value;
-    } else if (this.state.inputIdx === 8) {
-      calcInfo.num5 = this.numInput.value;
     }
+    
+    const calcInfo = Object.assign({}, this.props.calcInfo, {});
+    const inputIdx = this.state.inputIdx;
 
-    this.props.answer(
-      this.props.calcInfo,
-      this.props.startTime,
-    );
-    this.numInput.value = ''; 
+    // 回答位置
+    calcInfo.answerPos = inputIdx / 2;
+    calcInfo.answer = this.numInput.value;
+    calcInfo.startTime = this.props.startTime;
+
+    this.props.answer(calcInfo);
+    this.numInput.value = '';
   }
 
   getInput(key) {
@@ -118,7 +116,6 @@ class Calculation extends Component {
       row[this.state.inputIdx] = this.getInput(this.state.inputIdx);
     }
 
-    console.log(row);
     return (
       <div key={0} className={css.container}>
         {row}
@@ -132,6 +129,7 @@ Calculation.props = {
   calcKbn: PropTypes.string,
   startTime: PropTypes.string,
   answer: PropTypes.func.isRequired,
+  conditions: PropTypes.arrayOf(PropTypes.bool),
 };
 
 export default Calculation;

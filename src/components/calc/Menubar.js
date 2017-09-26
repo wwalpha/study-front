@@ -27,13 +27,19 @@ class Menubar extends Component {
       <div style={styles.container}>
         <FuncMenu actions={this.props.routeActions} />
         <Divider height="28px" width="2px" style={{ margin: '4px 4px' }} />
-        <MultiGroup />
+        <MultiGroup
+          conditions={this.props.conditions}
+          onCheck={this.props.actions.onCheck}
+          starting={this.props.starting}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
+  conditions: state.calc.conditions,
+  starting: state.calc.starting,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -47,6 +53,8 @@ Menubar.defaultProps = {
 Menubar.props = {
   actions: PropTypes.func,
   routeActions: PropTypes.func,
+  conditions: PropTypes.arrayOf(PropTypes.bool),
+  starting: PropTypes.bool,
 };
 
 export default connect(

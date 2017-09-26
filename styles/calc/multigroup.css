@@ -3,5 +3,6 @@
 }
 
 .checkbox {
-  width: 32px !important;
+  /* width: 32px !important; */
+  width: auto !important;
 }

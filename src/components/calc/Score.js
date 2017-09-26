@@ -36,10 +36,13 @@ class Score extends Component {
     }
 
     const result = this.props.scoreInfo.map((value, idx) => {
+      console.log(value);
       return (
         <div key={idx * 10000 + 1} style={styles.item}>
           <div key={idx * 10000 + 2} style={styles.number}>{idx + 1}.</div>
-          <div key={idx * 10000 + 3} style={styles.calc}>{value.leftNum}{value.operator}{value.rightNum}={value.answer}</div>
+          <div key={idx * 10000 + 3} style={styles.calc}>
+            {value.num1}{value.opt1}{value.num2}{value.opt2}{value.num3}
+          </div>
           <div
             key={idx * 10000 + 4}
             style={Object.assign({}, styles.result, {

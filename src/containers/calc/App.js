@@ -23,6 +23,7 @@ class CalculateApp extends Component {
       display.push(
         <Calculation
           calcInfo={this.props.calcInfo}
+          conditions={this.props.conditions}
           startTime={this.props.startTime}
           answer={this.props.actions.answer}
         />
@@ -50,6 +51,7 @@ const mapStateToProps = state => ({
   scoreInfo: state.calc.scoreInfo,
   starting: state.calc.starting,
   startTime: state.calc.startTime,
+  conditions: state.calc.conditions,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,6 +61,7 @@ const mapDispatchToProps = dispatch => ({
 CalculateApp.props = {
   actions: PropTypes.func,
   calcInfo: PropTypes.object,
+  conditions: PropTypes.arrayOf(PropTypes.bool),
   scoreInfo: PropTypes.arrayOf(PropTypes.object),
   starting: PropTypes.bool,
   startTime: PropTypes.string,

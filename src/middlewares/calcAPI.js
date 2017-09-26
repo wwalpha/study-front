@@ -1,4 +1,4 @@
-import { WEB_SITE, METHOD, COMMAND_CALC } from '../constant/Const';
+import { WEB_SITE, METHOD } from '../constant/Const';
 import * as actions from 'root/actions/calc';
 
 const calcAPI = store => next => (action) => {
@@ -27,26 +27,28 @@ const calcAPI = store => next => (action) => {
     next({ type: FETCH_REQUEST, payload: action.payload });
   }
 
-  let command = action.payload.command;
-  const method = action.payload.method;
+  // URL 
+  const newURL = [];
+  newURL.push(WEB_SITE);
+  newURL.push(action.payload.command);
 
   if (action.type === 'NEXT') {
-    const operator = store.getState().calc.operator;
+    const conditions = store.getState().calc.conditions;
 
-    if (operator === '+') {
-      command = COMMAND_CALC.ADD_SINGLE;
-    }
+    const options = conditions.map((value, index) => {
+      // change true value to number
+      return value === true ? index + 1 : undefined;
+    }).filter(value => {
+      // remove undefined
+      return value !== undefined;
+    });
 
-    if (operator === '-') {
-      command = COMMAND_CALC.MINUS_SINGLE;
-    }
+    newURL.push('?options=' + options.join(','));
   }
 
-  const newURL = [WEB_SITE];
-  newURL.push(command);
-
+  // URL Parameters
   const headers = { 'Content-Type': 'application/json' };
-
+  const method = action.payload.method;
   let urlParams = {
     mode: 'cors',
     method,
@@ -57,7 +59,7 @@ const calcAPI = store => next => (action) => {
     urlParams = Object.assign({}, urlParams, { body: action.payload.body });
   }
 
-  let url = newURL.join('/');
+  const url = newURL.join('/');
 
   return fetch(url, urlParams)
   .then((res) => {

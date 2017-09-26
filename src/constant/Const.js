@@ -1,7 +1,7 @@
 export const WEB_SITE = 'http://52.192.77.235';
 // export const WEB_SITE = 'http://localhost:8080';
 
-export const VERSION = 'Ver1.0.5';
+export const VERSION = 'Ver1.5.0';
 
 export const METHOD = {
   GET: 'GET',
@@ -32,10 +32,15 @@ export const COMMAND = {
 };
 
 export const COMMAND_CALC = {
-  ADD_SINGLE: 'addsingle',
-  MINUS_SINGLE: 'minsingle',
+  NEXT: 'next',
   SCORE: 'score',
   ANSWER: 'answer',
+};
+
+export const CNDT = {
+  ADD: 0,
+  MINUS: 1,
+  BUG: 4,
 };
 
 export const isIOS = function() {

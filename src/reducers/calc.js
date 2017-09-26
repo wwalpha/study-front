@@ -7,9 +7,13 @@ const initialState = {
   starting: false,
   startTime: '',
   operator: '+',
+  conditions: Array(5).fill(false),
 };
 
 const calc = handleActions({
+  ON_CHECK: (state, action) => Object.assign({}, state, {
+    conditions: action.payload.conditions,
+  }),
 
   OPT_CHANGE: (state, action) => Object.assign({}, state, {
     operator: action.payload.operator,

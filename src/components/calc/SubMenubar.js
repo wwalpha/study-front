@@ -50,6 +50,7 @@ class SubMenubar extends Component {
     this.handleOnend = this.handleOnend.bind(this);
   }
 
+  /** Start Calculation */
   handleOnstart(){
     this.setState({
       endDate: Moment().add(10,'m').format('YYYYMMDD HH:mm:ss'),
@@ -59,6 +60,7 @@ class SubMenubar extends Component {
     this.props.actions.start();
   }
 
+  /** End Calculation */
   handleOnend() {
     this.setState({
       endDate: '',
