@@ -36,7 +36,6 @@ class Calculation extends Component {
   
   handleOnclick() {
     // if not type a value, skip
-    console.log(this.numInput.value);
     if (this.numInput.value === '' || this.numInput.value === undefined) {
       return;
     }
