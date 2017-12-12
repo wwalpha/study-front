@@ -14,4 +14,24 @@ const isEmpty = function (uri, filename) {
   }
 };
 
+const strFormat = function (args) {
+  const str = this;
+  const regexp = new RegExp("{-?[0-9]+}", "g");
+  return str.replace(regexp, function(item) {
+    var intVal = parseInt(item.substring(1, item.length - 1));
+    var replace;
+    if (intVal >= 0) {
+      replace = args[intVal];
+    } else if (intVal === -1) {
+      replace = '{';
+    } else if (intVal === -2) {
+      replace = '}';
+    } else {
+      replace = '';
+    }
+    return replace;
+  });
+};
+
 exports.isEmpty = isEmpty;
+exports.strFormat = strFormat;

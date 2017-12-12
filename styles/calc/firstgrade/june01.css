@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+  display: inline-block;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
+}
+
+.title {
+  margin: 4px 0px;
+}
+
+.formula {
+  display: inline-flex;
+  border-bottom-style: groove;
+  border-bottom-color: black;
+  border-bottom-width: 2px;
+}

@@ -1,4 +1,3 @@
-// import fetch from 'isomorphic-fetch';
 import { URL_TYPE, WEB_SITE, METHOD, COMMAND } from '../constant/Const';
 
 const upload = store => next => (action) => {

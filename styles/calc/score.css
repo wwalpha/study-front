@@ -1,0 +1,34 @@
+.border {
+  border-style: dashed;
+  border-color: slateblue;
+  border-width: 2px;
+  height: 20px;
+  width: 32px;
+  text-align: center;
+  margin-left: 4px;
+}
+
+.noneBorder {
+  border-style: dashed;
+  border-color: transparent;
+  border-width: 2px;
+  padding-left: 2px;
+  height: 20px;
+}
+
+.calc {
+  display: inline-flex;
+  width: 200px;
+  height: 32px;
+  align-content: center;
+}
+
+.item {
+  display: inline-flex;
+  width: 100%;
+  height: 32px;
+}
+
+.number {
+  width: 32px;
+}
