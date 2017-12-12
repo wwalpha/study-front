@@ -20,6 +20,11 @@ const kvArray = [['A', String.fromCharCode(230)], ['B', String.fromCharCode(593)
 ];
 const map = new Map(kvArray);
 
+const styles = {
+  iconStyle: { marginRight: '6px' },
+  smallIcon: { width: '24px', height: '24px' },
+};
+
 class Word extends Component {
 
   constructor() {
@@ -33,15 +38,6 @@ class Word extends Component {
   }
 
   render() {
-    const styles = {
-      iconStyle: {
-        marginRight: '6px',
-      },
-      smallIcon: {
-        width: '24px',
-        height: '24px',
-      },
-    };
 
     const pronounce = [];
 

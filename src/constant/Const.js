@@ -1,5 +1,5 @@
-//export const WEB_SITE = 'http://52.192.77.235';
- export const WEB_SITE = 'http://localhost:8080';
+export const WEB_SITE = 'http://52.192.77.235';
+//export const WEB_SITE = 'http://localhost:8080';
 
 export const VERSION = 'Ver1.5.1';
 
