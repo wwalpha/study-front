@@ -1,5 +1,4 @@
-export const WEB_SITE = 'http://52.192.77.235';
-//export const WEB_SITE = 'http://localhost:8080';
+export const WEB_SITE = 'http://localhost:8080';
 
 export const VERSION = 'Ver1.5.1';
 
@@ -43,10 +42,10 @@ export const CNDT = {
   BUG: 4,
 };
 
-export const isIOS = function() {
+export const isIOS = () => {
   const ua = navigator.userAgent.toLowerCase();
 
-  if(ua.indexOf('iphone') > 0 || ua.indexOf('ipad') > 0){
+  if (ua.indexOf('iphone') > 0 || ua.indexOf('ipad') > 0) {
     return true;
   }
 

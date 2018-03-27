@@ -1,29 +1,41 @@
 {
-    // "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
-    "plugins": [],
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "allowImportExportEverywhere": false,
-      "codeFrame": false
-    },
     "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
+        "browser": true,
+        "commonjs": true,
+        "es6": true
     },
-    "globals": {},
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb"
+    ],
     "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
     "rules": {
-      "no-console": 1,
-      "no-param-reassign": [2, { "props": false }],
-      "no-unused-vars": ["error", {"args": "none"}],
-      "react/prop-types": 0,
-      "react/no-array-index-key": 0,
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/prefer-stateless-function": 0,
-      "jsx-a11y/media-has-caption": 0,
-      "max-len": ["error", 160]
+        "indent": ["error", 2],
+        "linebreak-style": [ "error","unix"],
+        "quotes": ["error","single"],
+        "semi": ["error","always"],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "max-len": ["error", 160]
+    },
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+				"config": "webpack.config.js"
+			}
+        },
+        "import/extensions": ["js", "jsx"]
     }
 }

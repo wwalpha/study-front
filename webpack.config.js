@@ -1,44 +1,34 @@
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  devtool: "source-map",
-  context: __dirname + "/src",
-  entry: './index.js',
+  mode: 'development',
+  devtool: 'source-map',
+  entry: [
+    'webpack-hot-middleware/client',
+    './index.js',
+  ],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
-  },
-  devServer: {
-    contentBase: 'build',
-    port: 3000
+    path: path.resolve(__dirname, 'build'),
   },
   resolve: {
+    extensions: ['.js', '.json', '.jsx', '.css'],
     alias: {
-      root: path.resolve(__dirname, 'src/'),
-      styles: path.resolve(__dirname, 'styles/'),
-      calc: path.resolve(__dirname, 'src/components/calc/')
-    }
+      src: path.resolve(__dirname, 'src/'),
+    },
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader"],
+        use: 'babel-loader',
       },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loaders: ["eslint-loader"],
-      },
-      {
-        test: /\.html$/,
-        loader: "file?name=[name].[ext]",
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style-loader', 'css-loader?modules'],
-      }
     ],
   },
-}
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
+};

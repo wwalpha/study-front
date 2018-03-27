@@ -1,6 +1,1 @@
-/node_modules/*
-/build/simsun.ttc
-/build/bundle.js.map
-/.vscode/*
-/start.bat
-/build.bat
+/node_modules
