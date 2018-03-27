@@ -11,9 +11,10 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
   },
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.css'],
+    extensions: ['.js', '.jsx'],
     alias: {
       src: path.resolve(__dirname, 'src/'),
     },
@@ -23,7 +24,14 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env', 'react'],
+            },
+          },
+        ],
       },
     ],
   },

@@ -1,7 +1,6 @@
 {
     "env": {
         "browser": true,
-        "commonjs": true,
         "es6": true
     },
     "extends": [
@@ -15,7 +14,9 @@
             "experimentalObjectRestSpread": true,
             "jsx": true
         },
-        "sourceType": "module"
+        "sourceType": "module",
+        "allowImportExportEverywhere": false,
+        "codeFrame": false
     },
     "plugins": [
         "react",
@@ -28,6 +29,7 @@
         "quotes": ["error","single"],
         "semi": ["error","always"],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/prefer-stateless-function": [0],
         "max-len": ["error", 160]
     },
     "settings": {
