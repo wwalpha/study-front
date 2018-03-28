@@ -1,0 +1,26 @@
+{
+  "presets": [
+    "react",
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      },
+      "modules": false
+    }]
+  ],
+  "env": {
+    "development": {
+      "plugins": [["react-transform", {
+        "transforms": [{
+          "transform": "react-transform-hmr",
+          "imports": ["react"],
+          "locals": ["module"]
+        }]
+      }]]
+    }
+  },
+  "plugins": [
+    "transform-class-properties",
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ]
+}
