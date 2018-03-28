@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "jsx": "react"
+        "jsx": "react",
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
