@@ -18,6 +18,10 @@
         "allowImportExportEverywhere": false,
         "codeFrame": false
     },
+    "globals": {
+        "module": true,
+	"require": true
+    },
     "plugins": [
         "react",
         "jsx-a11y",
