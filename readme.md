@@ -4,7 +4,7 @@
 * prop-types
 
 ```js
-npm install --save react react-dom
+npm install --save react react-dom prop-types
 ```
 ### Redux関連
 * redux
