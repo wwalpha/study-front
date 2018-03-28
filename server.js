@@ -22,7 +22,7 @@ app.use('*', (req, res, next) => {
       next(err);
       return;
     }
-    
+
     res.set('content-type', 'text/html');
     res.send(result);
     res.end();

@@ -1,18 +1,12 @@
-// import React from 'react';
-// import { render } from 'react-dom';
-// // import App from 'src/containers/App1';
-
-// // const root = document.getElementById('root');
-// // console.error(App);
-// render(
-//   <div>111</div>,
-//   root,
-// );
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { render } from 'react-dom';
+import store from 'src/store';
+import App from 'src/containers/App';
 
-console.error(1111);
-ReactDOM.render(
-  <h1>Hello, world!</h1>,
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root'),
 );

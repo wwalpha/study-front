@@ -1,4 +1,5 @@
-const { API_HOST } = process.env;
+const { API_URL } = process.env;
 
-export const USERS_URL = `${API_HOST}/users`;
-export const USER_PROPS_URL = user => `${API_HOST}/${user}/props`;
+export const USERS_URL = `${API_URL}/users`;
+export const USER_PROPS_URL = user => `${API_URL}/${user}/props`;
+export const NEXT = user => mode => `${API_URL}/${user}/${mode}/nextpage`;

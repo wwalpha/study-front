@@ -1,5 +1,3 @@
-export const WEB_SITE = 'http://localhost:8080';
-
 export const VERSION = 'Ver1.5.1';
 
 export const METHOD = {

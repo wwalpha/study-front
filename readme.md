@@ -43,10 +43,10 @@ npm install --save redux-api-middleware
 
 ### UI関連
 * material-ui@next
-* material-icons
+* material-ui-icons
 
 ```js
-npm install --save material-ui@next material-icons
+npm install --save material-ui@next material-ui-icons
 ```
 
 ### webpack 4

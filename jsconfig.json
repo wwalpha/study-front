@@ -4,7 +4,9 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
-        "src/*": ["./src/*"]
+            "src/*": ["./src/*"],
+            "comp/*": ["./src/components/common/*"],
+            "components/*": ["./src/components/*"]
         }
     },
     "exclude": [

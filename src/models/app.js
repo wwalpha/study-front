@@ -14,5 +14,7 @@ const AppRecord = Record({
 });
 
 export default class App extends AppRecord {
-
+  setUsers(users) {
+    return this.set('users', users);
+  }
 }

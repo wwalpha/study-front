@@ -1,0 +1,7 @@
+export const NEXT_REQUEST = 'NEXT_REQUEST';
+export const NEXT_SUCCESS = 'NEXT_SUCCESS';
+export const NEXT_FAILED = 'NEXT_SUCCESS';
+
+export const USERS_REQUEST = 'USERS_REQUEST';
+export const USERS_SUCCESS = 'USERS_SUCCESS';
+export const USERS_FAILED = 'USERS_FAILED';

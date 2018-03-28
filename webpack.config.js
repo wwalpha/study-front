@@ -18,6 +18,8 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       src: path.resolve(__dirname, 'src/'),
+      comp: path.resolve(__dirname, 'src/components/common/'),
+      components: path.resolve(__dirname, 'src/components/'),
     },
   },
   module: {
@@ -25,24 +27,18 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['env', 'react'],
-            },
-          },
-        ],
+        use: 'babel-loader',
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['source-map-loader', 'eslint-loader'],
-        enforce: 'pre'
+        enforce: 'pre',
       },
     ],
   },
   plugins: [
+    new webpack.EnvironmentPlugin({ API_URL: 'http://52.192.77.235' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({

@@ -1,12 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { reducer as formReducer } from 'redux-form/immutable';
+import { createStore, applyMiddleware } from 'redux';
 import { apiMiddleware as api } from 'redux-api-middleware';
 import logger from 'redux-logger';
+import reducer from '../reducers';
 
 const store = createStore(
-  combineReducers({
-    form: formReducer,
-  }),
+  reducer,
   applyMiddleware(api, logger),
 );
 
