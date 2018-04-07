@@ -10,28 +10,35 @@ import { IconButton } from 'comp';
 
 export default class CtrlGroup extends Component {
   static propTypes = {
-    actions: PropTypes.objectOf(PropTypes.func),
     visible: PropTypes.bool,
+    disabled: PropTypes.bool,
+    showVisible: PropTypes.func,
+    back: PropTypes.func,
+    next: PropTypes.func,
+    save: PropTypes.func,
+    play: PropTypes.func,
   }
 
   render() {
-    const { actions, visible } = this.props;
-    console.error(actions);
+    const {
+      visible, showVisible, disabled, back, next, save, play,
+    } = this.props;
+
     return (
       <React.Fragment>
-        <IconButton>
+        <IconButton onClick={back} disabled={disabled}>
           <ArrowBack />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={next} disabled={disabled}>
           <ArrowForward />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={showVisible}>
           {(() => (visible ? <VisibilityOff /> : <Visibility />))()}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={save}>
           <Save />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={play}>
           <PlaylistPlay />
         </IconButton>
       </React.Fragment>

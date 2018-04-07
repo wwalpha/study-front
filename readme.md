@@ -72,12 +72,14 @@ npm install --save-dev babel-core babel-loader babel-preset-env babel-preset-rea
 ```
 
 ### HMR関連(Hot Module Reload)
-* webpack-hot-middleware
-* babel-plugin-react-transform
-* react-transform-hmr
+* webpack-hot-middleware(HMR Enable)
+* babel-plugin-react-transform(React HMR)
+* react-transform-hmr(React HMR)
+* react-hot-loader(JSS HMR)
+* redux-devtools-extension(Immutable HMR)
 
 ```js
-npm install --save-dev webpack-hot-middleware babel-plugin-react-transform react-transform-hmr
+npm install --save-dev webpack-hot-middleware babel-plugin-react-transform react-transform-hmr react-hot-loader
 ```
 
 ### ESLint関連

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { hot } from 'react-hot-loader';
 import Menubar from 'src/containers/Menubar';
 import Word from 'src/containers/Word';
 import * as AppActions from 'src/actions/eng';
@@ -41,4 +42,4 @@ App.props = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(App);
+)(hot(module)(App));

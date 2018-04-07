@@ -18,20 +18,17 @@ class Word extends Component {
   }
 
   render() {
-    const { dataList = [{ a: '1' }] } = this.props;
+    const { dataList = [] } = this.props;
     return (
       <form>
-        {(() => dataList.map((dataRow, index) => {
-          console.error(dataRow);
-          return (
-            <Grid container>
-              <Grid item>
-                <Checkbox name={`favorite[${index}]`} />
-                <Checkbox name={`selected[${index}]`} />
-              </Grid>
+        {(() => dataList.map((dataRow, index) => (
+          <Grid container>
+            <Grid item>
+              <Checkbox name={`favorite[${index}]`} />
+              <Checkbox name={`selected[${index}]`} />
             </Grid>
-          );
-        }))()}
+          </Grid>
+        )))()}
       </form>
     );
   }

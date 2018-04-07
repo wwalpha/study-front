@@ -20,6 +20,10 @@ module.exports = {
       src: path.resolve(__dirname, 'src/'),
       comp: path.resolve(__dirname, 'src/components/common/'),
       components: path.resolve(__dirname, 'src/components/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      constant: path.resolve(__dirname, 'src/constant/'),
+      containers: path.resolve(__dirname, 'src/containers/'),
+      reducers: path.resolve(__dirname, 'src/reducers/'),
     },
   },
   module: {

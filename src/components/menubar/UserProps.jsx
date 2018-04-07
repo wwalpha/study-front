@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Immutale from 'immutable';
 import Person from 'material-ui-icons/Person';
 import Menu, { MenuItem } from 'material-ui/Menu';
 
@@ -7,30 +8,46 @@ import { IconButton } from 'comp';
 
 export default class UserProps extends Component {
   static propTypes = {
-    actions: PropTypes.objectOf(PropTypes.func),
-    users: PropTypes.arrayOf(PropTypes.string),
+    users: PropTypes.instanceOf(Immutale.List),
+    userChange: PropTypes.func,
   }
 
   state = {
-    open: false,
+    anchorEl: null,
   }
 
-  handleOpen = () => this.setState({ open: true });
-  handleClose = () => this.setState({ open: false });
+  handleOpen = e => this.setState({ anchorEl: e.currentTarget });
+  handleClose = () => this.setState({ anchorEl: null });
 
+  handleClick = (item) => {
+    const { userChange } = this.props;
+    this.handleClose();
+    // ユーザ選択
+    userChange(item);
+  }
   render() {
-    const { actions, users = [] } = this.props;
-    console.error(actions, users);
+    const { users = [] } = this.props;
+    const { anchorEl } = this.state;
     return (
       <React.Fragment>
         <IconButton onClick={this.handleOpen}>
           <Person />
         </IconButton>
         <Menu
-          open={this.state.open}
-          onClose={this.handleOpen}
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
         >
-          {users.map(item => <MenuItem>{item}</MenuItem>)}
+          {
+            users.map(user => (
+              <MenuItem
+                key={user}
+                onClick={() => this.handleClick(user.userName)}
+              >
+                {user.userName}
+              </MenuItem>
+            ))
+          }
         </Menu>
       </React.Fragment>
     );

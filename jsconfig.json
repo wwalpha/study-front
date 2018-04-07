@@ -6,7 +6,11 @@
         "paths": {
             "src/*": ["./src/*"],
             "comp/*": ["./src/components/common/*"],
-            "components/*": ["./src/components/*"]
+            "components/*": ["./src/components/*"],
+            "utils/*": ["./src/utils/*"],
+            "constant/*": ["./src/constant/*"],
+            "containers/*": ["./src/containers/*"],
+            "reducers/*": ["./src/reducers/*"]
         }
     },
     "exclude": [
