@@ -6,16 +6,22 @@ import { reduxForm, change, formValueSelector } from 'redux-form/immutable';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
 import CtrlGroup from 'components/menubar/CtrlGroup';
 import FuncGroup from 'components/menubar/FuncGroup';
 import UserProps from 'components/menubar/UserProps';
 import * as MenuActions from 'src/actions/eng';
 import { isEmpty } from 'utils/StringUtils';
+import { VERSION } from 'src/constant/Const';
 
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.grey[300],
     paddingLeft: theme.spacing.unit,
+  },
+  version: {
+    position: 'absolute',
+    right: theme.spacing.unit * 3,
   },
 });
 
@@ -32,8 +38,17 @@ class Menubar extends Component {
 
   handleNext = () => {
     const { actions, app, formValues } = this.props;
-    actions.next(app.currUser, formValues.func);
+    const { words, rowsPerPage, page } = app;
+
+    const totalPages = words.size / rowsPerPage;
+    if (totalPages !== (page + 1)) {
+      actions.nextPage();
+    } else {
+      actions.next(app.currUser, formValues.func);
+    }
   }
+
+  handleSave = () => this.props.actions.save(this.props.app.words.toJS());
 
   handleBack = () => this.props.actions.prevPage();
 
@@ -45,8 +60,10 @@ class Menubar extends Component {
 
     return (
       <form>
-        <Grid container spacing={0} className={classes.root}>
-          <FuncGroup />
+        <Grid container spacing={0} alignItems="center" className={classes.root}>
+          <FuncGroup
+            disabled={isEmpty(currUser)}
+          />
           <CtrlGroup
             visible={formValues.visible}
             showVisible={this.handleShowVisible}
@@ -54,12 +71,13 @@ class Menubar extends Component {
             next={this.handleNext}
             save={this.handleSave}
             play={this.handlePlay}
-            disabled={isEmpty(currUser)}
+            disabled={isEmpty(currUser) || isEmpty(formValues.func)}
           />
           <UserProps
             users={app.users}
             userChange={actions.userProps}
           />
+          <Typography className={classes.version}>{VERSION}</Typography>
         </Grid>
       </form>
     );

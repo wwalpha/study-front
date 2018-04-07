@@ -47,6 +47,12 @@ export default class App extends AppRecord {
       .nextPage();
   }
 
+  save(wordList) {
+    return this
+      .clearWords()
+      .addWords(wordList);
+  }
+
   nextPage() {
     return this.set('page', this.page + 1);
   }
@@ -54,5 +60,19 @@ export default class App extends AppRecord {
   prevPage() {
     if (this.page === 0) return this;
     return this.set('page', this.page - 1);
+  }
+
+  setSelected(rowIndex) {
+    const index = (this.page * this.rowsPerPage) + rowIndex;
+    const newList = this.words.update(index, value => value.set('checked', !value.checked));
+
+    return this.set('words', newList);
+  }
+
+  setFavorite(rowIndex) {
+    const index = (this.page * this.rowsPerPage) + rowIndex;
+    const newList = this.words.update(index, value => value.set('favorite', !value.favorite));
+
+    return this.set('words', newList);
   }
 }

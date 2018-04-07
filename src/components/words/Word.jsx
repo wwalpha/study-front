@@ -37,21 +37,29 @@ class Word extends Component {
     page: PropTypes.number,
     rowsPerPage: PropTypes.number,
     visible: PropTypes.bool,
+    onClickMark: PropTypes.func,
+    onClickFavorite: PropTypes.func,
   }
 
   render() {
     const {
       classes, dataList = [], page, rowsPerPage, visible,
+      onClickMark, onClickFavorite,
     } = this.props;
     const detailList = dataList.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
     return (
       <React.Fragment>
-        {(() => detailList.map(dataRow => (
+        {(() => detailList.map((dataRow, rowIndex) => (
           <Grid key={dataRow.word} container spacing={0} alignItems="center">
             <Grid item xs={3}>
-              <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-              <Checkbox />
+              <Checkbox
+                checked={dataRow.favorite}
+                icon={<FavoriteBorder />}
+                checkedIcon={<Favorite />}
+                onClick={() => onClickFavorite(rowIndex)}
+              />
+              <Checkbox checked={dataRow.checked} onClick={() => onClickMark(rowIndex)} />
               {dataRow.word}
             </Grid>
             <Grid item xs={2}>

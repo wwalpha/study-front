@@ -19,9 +19,11 @@ class App extends Component {
   /* 初回の描画時にのみ呼び出される */
   componentWillMount = () => this.props.actions.users();
 
+  handleClickMark = rowIndex => this.props.actions.selected(rowIndex);
+  handleClickFavorite = rowIndex => this.props.actions.favorite(rowIndex);
+
   render() {
     const { app, visible } = this.props;
-    console.error(app);
     return (
       <React.Fragment>
         <Menubar />
@@ -30,6 +32,8 @@ class App extends Component {
           dataList={app.words}
           page={app.page}
           rowsPerPage={app.rowsPerPage}
+          onClickMark={this.handleClickMark}
+          onClickFavorite={this.handleClickFavorite}
         />
       </React.Fragment>
     );

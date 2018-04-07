@@ -37,16 +37,14 @@ export default class UserProps extends Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {
-            users.map(user => (
-              <MenuItem
-                key={user}
-                onClick={() => this.handleClick(user.userName)}
-              >
-                {user.userName}
-              </MenuItem>
-            ))
-          }
+          {users.map(user => (
+            <MenuItem
+              key={user}
+              onClick={() => this.handleClick(user.userName)}
+            >
+              {user.userName}
+            </MenuItem>
+          ))}
         </Menu>
       </React.Fragment>
     );

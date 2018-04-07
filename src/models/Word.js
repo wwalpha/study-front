@@ -1,6 +1,7 @@
 import { Record } from 'immutable';
 
 const WordRecord = Record({
+  checked: false,
   userName: undefined,
   category: undefined,
   word: undefined,

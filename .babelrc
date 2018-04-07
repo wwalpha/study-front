@@ -8,17 +8,6 @@
       "modules": false
     }]
   ],
-  "env": {
-    "development": {
-      "plugins": [["react-transform", {
-        "transforms": [{
-          "transform": "react-transform-hmr",
-          "imports": ["react"],
-          "locals": ["module"]
-        }]
-      }]]
-    }
-  },
   "plugins": [
     "react-hot-loader/babel",
     "transform-class-properties",

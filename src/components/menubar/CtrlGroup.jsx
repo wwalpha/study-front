@@ -43,13 +43,13 @@ class CtrlGroup extends Component {
         <IconButton onClick={next} disabled={disabled}>
           <PlayArrow />
         </IconButton>
-        <IconButton onClick={showVisible}>
+        <IconButton onClick={showVisible} disabled={disabled}>
           {(() => (visible ? <VisibilityOff /> : <Visibility />))()}
         </IconButton>
-        <IconButton onClick={save}>
+        <IconButton onClick={save} disabled={disabled}>
           <Save />
         </IconButton>
-        <IconButton onClick={play}>
+        <IconButton onClick={play} disabled={disabled}>
           <PlaylistPlay />
         </IconButton>
       </React.Fragment>
