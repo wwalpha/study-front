@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ArrowBack from 'material-ui-icons/ArrowBack';
-import ArrowForward from 'material-ui-icons/ArrowForward';
+import { withStyles } from 'material-ui/styles';
+import PlayArrow from 'material-ui-icons/PlayArrow';
 import Visibility from 'material-ui-icons/Visibility';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
 import Save from 'material-ui-icons/Save';
 import PlaylistPlay from 'material-ui-icons/PlaylistPlay';
-import { IconButton } from 'comp';
+import { IconButton } from 'ui/Button';
 
-export default class CtrlGroup extends Component {
+const styles = (theme) => {
+  console.error(theme);
+
+  return {
+    rotate: {
+      transform: 'rotate(180deg)',
+    },
+  };
+};
+
+class CtrlGroup extends Component {
   static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string),
     visible: PropTypes.bool,
     disabled: PropTypes.bool,
     showVisible: PropTypes.func,
@@ -21,16 +32,16 @@ export default class CtrlGroup extends Component {
 
   render() {
     const {
-      visible, showVisible, disabled, back, next, save, play,
+      classes, visible, showVisible, disabled, back, next, save, play,
     } = this.props;
 
     return (
       <React.Fragment>
         <IconButton onClick={back} disabled={disabled}>
-          <ArrowBack />
+          <PlayArrow className={classes.rotate} />
         </IconButton>
         <IconButton onClick={next} disabled={disabled}>
-          <ArrowForward />
+          <PlayArrow />
         </IconButton>
         <IconButton onClick={showVisible}>
           {(() => (visible ? <VisibilityOff /> : <Visibility />))()}
@@ -45,3 +56,5 @@ export default class CtrlGroup extends Component {
     );
   }
 }
+
+export default withStyles(styles)(CtrlGroup);

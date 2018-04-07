@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LooksOne from 'material-ui-icons/LooksOne';
 import LooksTwo from 'material-ui-icons/LooksTwo';
-import { Radio, RadioGroup } from 'comp';
+import Radio, { RadioGroup } from 'ui/reduxform/Radio';
 
 export default class FuncGroup extends Component {
   render() {

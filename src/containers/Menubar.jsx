@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
 import { reduxForm, change, formValueSelector } from 'redux-form/immutable';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
+import Grid from 'material-ui/Grid';
 import CtrlGroup from 'components/menubar/CtrlGroup';
 import FuncGroup from 'components/menubar/FuncGroup';
 import UserProps from 'components/menubar/UserProps';
 import * as MenuActions from 'src/actions/eng';
 import { isEmpty } from 'utils/StringUtils';
 
+const styles = theme => ({
+  root: {
+    backgroundColor: theme.palette.grey[300],
+    paddingLeft: theme.spacing.unit,
+  },
+});
+
 class Menubar extends Component {
   static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string),
     app: PropTypes.instanceOf(Immutable.Record),
     formValues: PropTypes.objectOf(PropTypes.any),
     actions: PropTypes.objectOf(PropTypes.func),
@@ -25,26 +35,32 @@ class Menubar extends Component {
     actions.next(app.currUser, formValues.func);
   }
 
+  handleBack = () => this.props.actions.prevPage();
+
   render() {
-    const { app, actions, formValues = {} } = this.props;
+    const {
+      classes, app, actions, formValues = {},
+    } = this.props;
     const { currUser } = app;
 
     return (
       <form>
-        <FuncGroup />
-        <CtrlGroup
-          visible={formValues.visible}
-          showVisible={this.handleShowVisible}
-          back={this.handleBack}
-          next={this.handleNext}
-          save={this.handleSave}
-          play={this.handlePlay}
-          disabled={isEmpty(currUser)}
-        />
-        <UserProps
-          users={app.users}
-          userChange={actions.userProps}
-        />
+        <Grid container spacing={0} className={classes.root}>
+          <FuncGroup />
+          <CtrlGroup
+            visible={formValues.visible}
+            showVisible={this.handleShowVisible}
+            back={this.handleBack}
+            next={this.handleNext}
+            save={this.handleSave}
+            play={this.handlePlay}
+            disabled={isEmpty(currUser)}
+          />
+          <UserProps
+            users={app.users}
+            userChange={actions.userProps}
+          />
+        </Grid>
       </form>
     );
   }
@@ -73,4 +89,4 @@ const menubar = reduxForm({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(menubar);
+)(withStyles(styles)(menubar));

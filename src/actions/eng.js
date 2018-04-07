@@ -1,3 +1,4 @@
+import { createAction } from 'redux-actions';
 import { CALL_API } from 'redux-api-middleware';
 import { USERS_URL, USER_PROPS_URL, NEXT } from 'src/constant/URLs';
 import { METHOD } from 'src/constant/Const';
@@ -5,7 +6,7 @@ import {
   DUMMY_REQUEST, DUMMY_FAILED,
   NEXT_SUCCESS,
   USERS_REQUEST, USERS_SUCCESS, USERS_FAILED,
-  USER_PROPS_SUCCESS,
+  USER_PROPS_SUCCESS, PREV_PAGE,
 } from 'src/constant/ActionTypes';
 
 export const users = () => ({
@@ -41,6 +42,9 @@ export const userProps = user => ({
   },
 });
 
+
+export const prevPage = createAction(PREV_PAGE);
+
 export const next = (user, mode) => ({
   [CALL_API]: {
     endpoint: NEXT(user)(mode),
@@ -55,3 +59,4 @@ export const next = (user, mode) => ({
     ],
   },
 });
+

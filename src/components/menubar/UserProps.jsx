@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Immutale from 'immutable';
 import Person from 'material-ui-icons/Person';
 import Menu, { MenuItem } from 'material-ui/Menu';
-
-import { IconButton } from 'comp';
+import { IconButton } from 'ui/Button';
 
 export default class UserProps extends Component {
   static propTypes = {

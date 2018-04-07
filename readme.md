@@ -100,6 +100,7 @@ npm install --save-dev eslint eslint-cli eslint-loader eslint-config-airbnb esli
 ### Debug関連
 * immutable-devtools
 * source-map-loader
+* file-loader
 
 ```js
 npm install --save-dev immutable-devtools source-map-loader
