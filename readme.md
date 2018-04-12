@@ -352,23 +352,28 @@ VSCodeの設定ファイル、jsxファイルの有効とパス別名の設定
 
 ```
 
-### ユーザ環境設定(ctrl + ,)
+### User Settings(ctrl + ,)
 ```js
 {
     "window.zoomLevel": 0,
-    "workbench.iconTheme": "vscode-icons", <-フォルダアイコン
+    // フォルダアイコン
+    "workbench.iconTheme": "vscode-icons",
     "editor.tabSize": 2,
     "editor.fontSize": 12,
-    "git.enabled": false <- 亀使うため、builtinを無効する
+    // 亀使うため、builtinを無効する
+    "git.enabled": false
 }
 ```
 
-### workspace環境設定(ctrl + ,)
+### Workspace Settings(ctrl + ,)
 ```js
 {
-  "eslint.autoFixOnSave": true, <- 保存時自動整形する
-  "files.eol": "\n", <- 改行コード CRLF -> LF
-  "files.exclude": { <- 表示しないファイル
+  // 保存時自動整形する
+  "eslint.autoFixOnSave": true,
+  // 改行コード CRLF -> LF
+  "files.eol": "\n",
+  // 表示しないファイル
+  "files.exclude": {
     ".vscode": true,
     "node_modules": true,
     ".gitignore": true,
