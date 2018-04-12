@@ -18,7 +18,7 @@ SPA学習用のプロジェクトでもあるため、環境設定なども紹�
 * redux-api-middleware
 
 ### 開発環境
-* Visual Studio Code
+* Visual Studio Code (VSCode)
 * EsLint
 * webpack
 * babel
@@ -325,4 +325,122 @@ module.exports = {
     }),
   ],
 };
+```
+
+### jsconfig.json
+VSCodeの設定ファイル、jsxファイルの有効とパス別名の設定
+```js
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"],
+            "ui/*": ["./src/components/common/*"],
+            "components/*": ["./src/components/*"],
+            "utils/*": ["./src/utils/*"],
+            "constant/*": ["./src/constant/*"],
+            "containers/*": ["./src/containers/*"],
+            "reducers/*": ["./src/reducers/*"]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
+
+```
+
+### ユーザ環境設定(ctrl + ,)
+```js
+{
+    "window.zoomLevel": 0,
+    "workbench.iconTheme": "vscode-icons", <-フォルダアイコン
+    "editor.tabSize": 2,
+    "editor.fontSize": 12,
+    "git.enabled": false <- 亀使うため、builtinを無効する
+}
+```
+
+### workspace環境設定(ctrl + ,)
+```js
+{
+  "eslint.autoFixOnSave": true, <- 保存時自動整形する
+  "files.eol": "\n", <- 改行コード CRLF -> LF
+  "files.exclude": { <- 表示しないファイル
+    ".vscode": true,
+    "node_modules": true,
+    ".gitignore": true,
+    ".eslintignore": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  }
+}
+```
+
+### package.json
+```js
+{
+  "name": "studyfront",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.1.4",
+    "eslint": "^4.19.1",
+    "eslint-cli": "^1.1.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-webpack": "^0.8.4",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "express": "^4.16.3",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.1.0",
+    "immutable-devtools": "^0.1.3",
+    "source-map-loader": "^0.2.3",
+    "webpack": "^4.3.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-middleware": "^3.1.0",
+    "webpack-hot-middleware": "^2.21.2"
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.9",
+    "material-ui": "^1.0.0-beta.38",
+    "material-ui-icons": "^1.0.0-beta.36",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.3.0",
+    "redux-api-middleware": "^2.3.0",
+    "redux-form": "^7.3.0",
+    "redux-immutable": "^4.0.0",
+    "redux-logger": "^3.0.6"
+  }
+}
 ```

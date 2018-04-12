@@ -1,7 +1,4 @@
 {
-  "git.ignoreLimitWarning": true,
-  "editor.tabSize": 2,
-  "editor.fontSize": 12,
   "eslint.autoFixOnSave": true,
   "files.eol": "\n",
   "files.exclude": {
