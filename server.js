@@ -10,8 +10,6 @@ const express = require('express');
 
 const app = express();
 
-// app.use(express.static('public'));
-
 app.use(dev(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
 app.use(hot(compiler));
 

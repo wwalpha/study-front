@@ -24,7 +24,7 @@ SPA学習用のプロジェクトでもあるため、環境設定なども紹�
 * babel
 * Hot module reload (HMR)
 
-## 開発環境設定
+## 開発環境
 
 ### Node.js
 [Node.js](https://nodejs.org/ja/download/)をダウンロードし、インストールしてから、インストール先をWindowsの環境変数に追加する
@@ -164,14 +164,165 @@ npm install --save-dev immutable-devtools source-map-loader
 npm install --save-dev cross-env html-webpack-plugin express file-loader
 ```
 
-### 設定ファイル
+## 環境設定
 
-#### ESLint
+### ESLint
+`eslint-import-resolver-webpack`、`eslint-plugin-import`、`airbnb`の設定が入ってます。
 ```js
-eslint --init
+{
+  "env": { "browser": true, "es6": true },
+  "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "airbnb"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+      "ecmaFeatures": {
+          "experimentalObjectRestSpread": true,
+          "jsx": true
+      },
+      "sourceType": "module"
+  },
+  "globals": { "module": true, "require": true },
+  "plugins": [ "react", "import" ], 
+  "rules": {
+      "indent": ["error", 2],
+      "linebreak-style": [ "error","unix"],
+      "quotes": ["error","single"],
+      "semi": ["error","always"],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/prefer-stateless-function": [0],
+      "react/require-default-props": [0],
+      "max-len": ["error", 160]
+  },
+  "settings": {
+      "import/resolver": {
+          "webpack": {
+            "config": "webpack.config.js"
+          }
+      },
+      "import/extensions": ["js", "jsx"]
+  }
+}
+```
 
-? How would you like to configure ESLint? Use a popular style guide
-? Which style guide do you want to follow? Airbnb
-? Do you use React? Yes
-? What format do you want your config file to be in? JSON
+### Babel
+HMR、`babel-plugin-transform-class-properties`、` babel-plugin-transform-object-rest-spread`の設定が入ってます。
+```js
+{
+  "presets": [
+    "react",
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      },
+      "modules": false
+    }]
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "transform-class-properties",
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ]
+}
+```
+
+### express
+```js
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
+
+const dev = require('webpack-dev-middleware');
+const hot = require('webpack-hot-middleware');
+const path = require('path');
+
+const compiler = webpack(webpackConfig);
+const express = require('express');
+
+const app = express();
+
+// hot deploy
+app.use(dev(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
+app.use(hot(compiler));
+
+// html-webpack-plugin設定したから、特別な対策が必要です
+app.use('*', (req, res, next) => {
+  const fileName = path.join(compiler.outputPath, 'index.html');
+  compiler.outputFileSystem.readFile(fileName, (err, result) => {
+    if (err) {
+      next(err);
+      return;
+    }
+
+    res.set('content-type', 'text/html');
+    res.send(result);
+    res.end();
+  });
+});
+
+// ポート3000で起動する
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
+```
+
+### webpack
+`html-webpack-plugin`、`babel-loader`、`source-map-loader`、`eslint-loader`、`webpack-hot-middleware`の設定が入ってます
+```js
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'development',
+  devtool: 'cheap-module-eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client',
+    './index.js',
+  ],
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      src: path.resolve(__dirname, 'src/'),
+      ui: path.resolve(__dirname, 'src/components/common/'),
+      components: path.resolve(__dirname, 'src/components/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      constant: path.resolve(__dirname, 'src/constant/'),
+      containers: path.resolve(__dirname, 'src/containers/'),
+      reducers: path.resolve(__dirname, 'src/reducers/'),
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['source-map-loader', 'eslint-loader'],
+        enforce: 'pre',
+      },
+    ],
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin({ API_URL }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Study Front',
+      filename: 'index.html',
+      template: path.join(__dirname, 'index.template.ejs'),
+      minify: false,
+      hash: true,
+      inject: 'body',
+    }),
+  ],
+};
 ```
