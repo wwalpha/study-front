@@ -51,10 +51,10 @@ class Word extends Component {
     return (
       <React.Fragment>
         {(() => detailList.map((dataRow, rowIndex) => (
-          <Grid key={dataRow.word} container spacing={0} alignItems="center">
+          <Grid key={`${dataRow.word}_${rowIndex}`} container spacing={0} alignItems="center">
             <Grid item xs={3}>
               <Checkbox
-                checked={dataRow.favorite}
+                checked={Boolean(Number(dataRow.favorite))}
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite />}
                 onClick={() => onClickFavorite(rowIndex)}

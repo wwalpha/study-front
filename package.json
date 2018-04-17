@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "cross-env API_URL=http://localhost:8080 node server.js",
+    "build": "cross-env API_URL=http://52.192.77.235 webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

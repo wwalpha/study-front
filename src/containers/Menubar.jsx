@@ -29,6 +29,7 @@ class Menubar extends Component {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string),
     app: PropTypes.instanceOf(Immutable.Record),
+    word: PropTypes.instanceOf(Immutable.Record),
     formValues: PropTypes.objectOf(PropTypes.any),
     actions: PropTypes.objectOf(PropTypes.func),
     formSet: PropTypes.func,
@@ -37,10 +38,12 @@ class Menubar extends Component {
   handleShowVisible = () => this.props.formSet('visible', !this.props.formValues.visible);
 
   handleNext = () => {
-    const { actions, app, formValues } = this.props;
-    const { words, rowsPerPage, page } = app;
-
-    const totalPages = words.size / rowsPerPage;
+    const {
+      actions, app, word, formValues,
+    } = this.props;
+    const { list, rowsPerPage, page } = word;
+    const totalPages = Math.ceil(list.size / rowsPerPage);
+    console.error(totalPages, page);
     if (totalPages !== (page + 1)) {
       actions.nextPage();
     } else {
@@ -48,7 +51,20 @@ class Menubar extends Component {
     }
   }
 
-  handleSave = () => this.props.actions.save(this.props.app.words.toJS());
+  handleSave = () => {
+    const { actions, app, word } = this.props;
+
+    word.distinct().forEach((item) => {
+      if (item.checked) {
+        actions.reset(app.currUser, item.id.wordNo);
+        return;
+      }
+
+      actions.save(app.currUser, item);
+    });
+
+    // actions.next(app.currUser, word.type);
+  };
 
   handleBack = () => this.props.actions.prevPage();
 
@@ -75,7 +91,7 @@ class Menubar extends Component {
           />
           <UserProps
             users={app.users}
-            userChange={actions.userProps}
+            userChange={actions.selectUser}
           />
           <Typography className={classes.version}>{VERSION}</Typography>
         </Grid>
@@ -88,6 +104,7 @@ const selector = formValueSelector('menubar');
 
 const mapStateToProps = state => ({
   app: state.app,
+  word: state.word,
   formValues: {
     visible: selector(state, 'visible'),
     func: selector(state, 'func'),

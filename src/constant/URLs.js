@@ -1,6 +1,6 @@
 const { API_URL } = process.env;
 
 export const USERS_URL = `${API_URL}/users`;
-export const USER_PROPS_URL = user => `${API_URL}/${user}/userprops`;
-export const NEXT = user => mode => `${API_URL}/${user}/${mode}/nextpage`;
-export const SAVE = user => mode => `${API_URL}/${user}/${mode}/save`;
+export const NEXT = userId => mode => `${API_URL}/${userId}/${mode}/nextpage`;
+export const SAVE = userId => wordNo => `${API_URL}/${userId}/${wordNo}`;
+export const RESET = userId => wordNo => `${API_URL}/${userId}/${wordNo}`;

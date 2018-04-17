@@ -40,9 +40,9 @@ export default class UserProps extends Component {
           {users.map(user => (
             <MenuItem
               key={user}
-              onClick={() => this.handleClick(user.userName)}
+              onClick={() => this.handleClick(user.userId)}
             >
-              {user.userName}
+              {user.userId}
             </MenuItem>
           ))}
         </Menu>

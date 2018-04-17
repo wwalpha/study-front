@@ -12,7 +12,7 @@ import * as AppActions from 'src/actions/eng';
 class App extends Component {
   static propTypes = {
     actions: PropTypes.objectOf(PropTypes.func),
-    app: PropTypes.instanceOf(Immutable.Record),
+    word: PropTypes.instanceOf(Immutable.Record),
     visible: PropTypes.bool,
   }
 
@@ -23,15 +23,15 @@ class App extends Component {
   handleClickFavorite = rowIndex => this.props.actions.favorite(rowIndex);
 
   render() {
-    const { app, visible } = this.props;
+    const { word, visible } = this.props;
     return (
       <React.Fragment>
         <Menubar />
         <Word
           visible={visible}
-          dataList={app.words}
-          page={app.page}
-          rowsPerPage={app.rowsPerPage}
+          dataList={word.list}
+          page={word.page}
+          rowsPerPage={word.rowsPerPage}
           onClickMark={this.handleClickMark}
           onClickFavorite={this.handleClickFavorite}
         />
@@ -43,7 +43,7 @@ class App extends Component {
 const selector = formValueSelector('menubar');
 
 const mapStateToProps = state => ({
-  app: state.app,
+  word: state.word,
   visible: selector(state, 'visible'),
 });
 

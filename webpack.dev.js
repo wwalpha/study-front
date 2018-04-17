@@ -42,7 +42,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.EnvironmentPlugin({ API_URL: 'http://52.192.77.235' }),
+    new webpack.EnvironmentPlugin({ API_URL: '' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({

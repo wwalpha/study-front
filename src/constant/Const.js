@@ -1,8 +1,10 @@
-export const VERSION = 'Ver2.0.0';
+export const VERSION = 'Ver2.0.1';
 
 export const METHOD = {
   GET: 'GET',
   POST: 'POST',
+  PUT: 'PUT',
+  DELETE: 'DELETE',
 };
 
 export const COMMAND_CALC = {

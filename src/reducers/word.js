@@ -1,9 +1,26 @@
 import { handleActions } from 'redux-actions';
-
-import Word from 'src/models/Word';
+import {
+  NEXT_SUCCESS, SAVE_SUCCESS, RESET_SUCCESS,
+  PREV_PAGE, NEXT_PAGE, CHECKED, FAVORITE,
+} from 'src/constant/ActionTypes';
+import Words from 'src/models/Words';
 
 const word = handleActions({
 
-}, new Word());
+  [NEXT_SUCCESS]: (state, action) => state.addWords(action.payload),
+
+  [SAVE_SUCCESS]: (state, action) => state.clear(action.payload),
+
+  [RESET_SUCCESS]: (state, action) => state.clear(action.payload),
+
+  [PREV_PAGE]: state => state.prevPage(),
+
+  [NEXT_PAGE]: state => state.nextPage(),
+
+  [CHECKED]: (state, action) => state.setSelected(action.payload.rowIndex),
+
+  [FAVORITE]: (state, action) => state.setFavorite(action.payload.rowIndex),
+
+}, new Words());
 
 export default word;
