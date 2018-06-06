@@ -44,36 +44,38 @@ export const next = (user, mode) => ({
   },
 });
 
-export const save = (userId, entity) => ({
+export const save = (userId, list) => ({
   [CALL_API]: {
-    endpoint: SAVE(userId)(entity.id.wordNo),
-    method: METHOD.PUT,
+    endpoint: SAVE(userId),
+    method: METHOD.POST,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      word: entity.word,
-      favorite: entity.favorite,
-      id: entity.id,
-    }),
+    body: JSON.stringify(list.map(item => ({
+      word: item.word,
+      favorite: item.favorite,
+      id: item.id,
+    }))),
     types: [
       { type: DUMMY_REQUEST },
       {
         type: SAVE_SUCCESS,
-        payload: () => ({ wordNo: entity.id.wordNo }),
       },
       { type: DUMMY_FAILED },
     ],
   },
 });
 
-export const reset = (userId, wordNo) => ({
+export const reset = (userId, list) => ({
   [CALL_API]: {
-    endpoint: RESET(userId)(wordNo),
-    method: METHOD.DELETE,
+    endpoint: RESET(userId),
+    method: METHOD.POST,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(list.map(item => ({
+      id: item.id,
+    }))),
     types: [
       { type: DUMMY_REQUEST },
       {
         type: RESET_SUCCESS,
-        payload: () => ({ wordNo }),
       },
       { type: DUMMY_FAILED },
     ],

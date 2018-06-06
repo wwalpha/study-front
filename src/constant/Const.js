@@ -1,4 +1,4 @@
-export const VERSION = 'Ver2.0.1';
+export const VERSION = 'Ver2.0.2';
 
 export const METHOD = {
   GET: 'GET',

@@ -2,7 +2,7 @@ import { Record, List } from 'immutable';
 import Word from './Word';
 
 const WordsRecord = Record({
-  page: -1,
+  page: 0,
   rowsPerPage: 7,
   list: List(),
 });
@@ -28,7 +28,7 @@ export default class Words extends WordsRecord {
   clearWords() {
     return this
       .set('list', List())
-      .set('page', -1);
+      .set('page', 0);
   }
 
   addWords(wordList) {
@@ -37,18 +37,26 @@ export default class Words extends WordsRecord {
     // 既存と結合する
     newList = this.list.concat(List(newList));
     // ページ数再計算
-    const page = Math.ceil(newList.size / this.rowsPerPage) - 1;
+    const page = Math.ceil(newList.size / this.rowsPerPage);
 
     return this
       .set('list', newList)
       .set('page', page);
   }
 
-  clear(payload) {
-    const { wordNo } = payload;
+  clearSave() {
+    const newList = this.list.filter(item => item.checked);
 
-    const newList = this.list.filter(item => item.id.wordNo !== wordNo);
-    const page = newList.size === 0 ? -1 : newList.size / this.rowsPerPage;
+    const page = newList.size === 0 ? 0 : Math.ceil(newList.size / this.rowsPerPage);
+    return this
+      .set('list', newList)
+      .set('page', page);
+  }
+
+  clearRest() {
+    const newList = this.list.filter(item => !item.checked);
+
+    const page = newList.size === 0 ? 0 : Math.ceil(newList.size / this.rowsPerPage);
     return this
       .set('list', newList)
       .set('page', page);
@@ -75,5 +83,12 @@ export default class Words extends WordsRecord {
     const newList = this.list.update(index, value => value.set('favorite', !value.favorite));
 
     return this.set('list', newList);
+  }
+
+  getPageList() {
+    if (this.page === 0) return [];
+
+    const pageList = this.list.slice((this.page - 1) * this.rowsPerPage, this.page * this.rowsPerPage);
+    return pageList.toJS();
   }
 }

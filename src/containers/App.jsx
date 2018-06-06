@@ -29,9 +29,7 @@ class App extends Component {
         <Menubar />
         <Word
           visible={visible}
-          dataList={word.list}
-          page={word.page}
-          rowsPerPage={word.rowsPerPage}
+          dataList={word.getPageList()}
           onClickMark={this.handleClickMark}
           onClickFavorite={this.handleClickFavorite}
         />

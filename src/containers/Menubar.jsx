@@ -43,27 +43,26 @@ class Menubar extends Component {
     } = this.props;
     const { list, rowsPerPage, page } = word;
     const totalPages = Math.ceil(list.size / rowsPerPage);
-    console.error(totalPages, page);
-    if (totalPages !== (page + 1)) {
-      actions.nextPage();
-    } else {
+
+    if (totalPages === page) {
       actions.next(app.currUser, formValues.func);
+    } else {
+      actions.nextPage();
     }
   }
 
   handleSave = () => {
     const { actions, app, word } = this.props;
 
-    word.distinct().forEach((item) => {
-      if (item.checked) {
-        actions.reset(app.currUser, item.id.wordNo);
-        return;
-      }
+    const saveList = word.distinct().filter(item => !item.checked);
+    const resetList = word.distinct().filter(item => item.checked);
 
-      actions.save(app.currUser, item);
-    });
-
-    // actions.next(app.currUser, word.type);
+    if (saveList.length !== 0) {
+      actions.save(app.currUser, saveList);
+    }
+    if (resetList.length !== 0) {
+      actions.reset(app.currUser, resetList);
+    }
   };
 
   handleBack = () => this.props.actions.prevPage();

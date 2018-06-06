@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Checkbox from 'ui/Checkbox';
@@ -33,9 +32,7 @@ const styles = () => ({
 class Word extends Component {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string),
-    dataList: PropTypes.instanceOf(Immutable.List),
-    page: PropTypes.number,
-    rowsPerPage: PropTypes.number,
+    dataList: PropTypes.arrayOf(PropTypes.object),
     visible: PropTypes.bool,
     onClickMark: PropTypes.func,
     onClickFavorite: PropTypes.func,
@@ -43,14 +40,13 @@ class Word extends Component {
 
   render() {
     const {
-      classes, dataList = [], page, rowsPerPage, visible,
+      classes, dataList = [], visible,
       onClickMark, onClickFavorite,
     } = this.props;
-    const detailList = dataList.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
     return (
       <React.Fragment>
-        {(() => detailList.map((dataRow, rowIndex) => (
+        {(() => dataList.map((dataRow, rowIndex) => (
           <Grid key={`${dataRow.word}_${rowIndex}`} container spacing={0} alignItems="center">
             <Grid item xs={3}>
               <Checkbox

@@ -9,9 +9,9 @@ const word = handleActions({
 
   [NEXT_SUCCESS]: (state, action) => state.addWords(action.payload),
 
-  [SAVE_SUCCESS]: (state, action) => state.clear(action.payload),
+  [SAVE_SUCCESS]: state => state.clearSave(),
 
-  [RESET_SUCCESS]: (state, action) => state.clear(action.payload),
+  [RESET_SUCCESS]: state => state.clearRest(),
 
   [PREV_PAGE]: state => state.prevPage(),
 
